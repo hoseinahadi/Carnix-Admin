@@ -1,0 +1,95 @@
+// src/core/dashboard/layout/userTable/DeleteUserModal.module.scss
+@import '../../../../styles/utils/mixins';
+@import '../../../../styles/utils/variables';
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  @include flex-center;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal {
+  background: $background-default;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-xl;
+  width: 90%;
+  max-width: 420px;
+  padding: $spacing-2xl;
+  direction: rtl;
+  text-align: center;
+  animation: slideUp 0.3s ease;
+
+  .iconWrapper {
+    margin-bottom: $spacing-lg;
+
+    .warningIcon {
+      font-size: 56px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+    }
+  }
+
+  h3 {
+    @include typography($font-size-xl, 700, $text-primary);
+    margin: 0 0 $spacing-sm;
+  }
+
+  p {
+    @include typography($font-size-base, 400, $text-secondary);
+    line-height: 1.7;
+    margin: 0 0 $spacing-xl;
+  }
+
+  .actions {
+    @include flex-center;
+    gap: $spacing-md;
+
+    button {
+      flex: 1;
+      padding: $spacing-md;
+      border: none;
+      border-radius: $border-radius-sm;
+      font-family: $font-family-primary;
+      font-size: $font-size-base;
+      font-weight: 600;
+      cursor: pointer;
+      @include transition;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-md;
+      }
+    }
+
+    .btnCancel {
+      background: $background-paper;
+      color: $text-secondary;
+
+      &:hover {
+        background: darken($background-paper, 5%);
+      }
+    }
+
+    .btnConfirm {
+      background: $error-color;
+      color: white;
+
+      &:hover {
+        background: darken($error-color, 10%);
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px) }
+  to { opacity: 1; transform: translateY(0) }
+}

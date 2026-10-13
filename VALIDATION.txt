@@ -1,0 +1,13 @@
+Carnix Admin validation
+=======================
+
+[PASS] TypeScript/TSX syntax transpilation
+[PASS] 48 backend controllers indexed
+[PASS] 263 HTTP actions indexed
+[PASS] no endpoint path outside api/*
+[PASS] all navigation items resolve to a resource or dedicated section
+[PASS] font sizes below 16px: 0
+[PASS] login/dashboard/api-center/inventory/orders/permissions/product-tools present
+
+Environment note:
+Package installation/build was not executed in the artifact sandbox because npm registry access was unavailable/timed out. Source-level syntax and structural checks were completed successfully.

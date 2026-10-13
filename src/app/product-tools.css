@@ -1,0 +1,188 @@
+.admin-v3-content .product-tools-tabs {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(0, 1fr));
+  gap: 10px;
+  padding: 10px;
+  border: 1px solid #e5dced;
+  border-radius: 17px;
+  background: rgba(255, 255, 255, 0.72);
+  box-shadow: 0 8px 22px rgba(70, 50, 94, 0.04);
+}
+
+.admin-v3-content .product-tools-tabs button {
+  min-height: 50px;
+  padding: 10px 14px;
+  border: 1px solid transparent;
+  border-radius: 11px;
+  background: transparent;
+  color: #766883;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.admin-v3-content .product-tools-tabs button:hover {
+  border-color: #dfd3eb;
+  background: #faf7fd;
+}
+
+.admin-v3-content .product-tools-tabs button.active {
+  border-color: #cbb9e5;
+  background: linear-gradient(135deg, #e9defb, #f7f3ff);
+  color: #6546a8;
+  box-shadow: 0 7px 16px rgba(103, 74, 148, 0.1);
+}
+
+.admin-v3-content .tool-card {
+  padding: 28px;
+  border: 1px solid #e6deee;
+  border-radius: 20px;
+  background: linear-gradient(145deg, #fff, #fdfbff);
+}
+
+.admin-v3-content .tool-card .tool-query {
+  padding: 20px;
+  border: 1px solid #dfd5e9;
+  border-radius: 16px;
+  background: linear-gradient(120deg, #f0eafd, #edf8f3);
+}
+
+.admin-v3-content .tool-card .form-grid {
+  gap: 18px;
+}
+
+.admin-v3-content .tool-card .form-grid > label > span,
+.admin-v3-content .tool-card .catalog-dropdown-label,
+.admin-v3-content .tool-card .product-reference-field > span {
+  margin-bottom: 8px;
+  color: #5f526c;
+  font-size: 12px;
+  font-weight: 750;
+}
+
+.admin-v3-content .tool-card input:not([type="checkbox"]),
+.admin-v3-content .tool-card textarea,
+.admin-v3-content .tool-card .catalog-dropdown-trigger,
+.admin-v3-content .tool-card .product-reference-input {
+  min-height: 48px;
+  border: 1px solid #ddd4e5;
+  border-radius: 11px;
+  background: #fff;
+}
+
+.admin-v3-content .tool-card input:focus,
+.admin-v3-content .tool-card textarea:focus,
+.admin-v3-content .tool-card .catalog-dropdown-trigger:focus-visible,
+.admin-v3-content .tool-card .product-reference-input:focus-within {
+  border-color: #9c80d0;
+  outline: 3px solid rgba(136, 102, 197, 0.14);
+  box-shadow: none;
+}
+
+.tool-data-status {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding: 14px 16px;
+  border: 1px solid #ded4e8;
+  border-radius: 13px;
+  background: #f7f3fc;
+  color: #796a87;
+  font-size: 12px;
+}
+
+.tool-data-status > div {
+  display: grid;
+  gap: 4px;
+  margin-inline-end: auto;
+}
+
+.tool-data-status b {
+  color: #5d4d6d;
+  font-size: 13px;
+}
+
+.tool-data-status button {
+  min-height: 36px;
+  padding: 7px 11px;
+  border: 1px solid #e3c7cf;
+  border-radius: 9px;
+  background: #fff;
+  color: #a25c6f;
+  font-size: 11px;
+}
+
+.tool-data-status.error {
+  border-color: #edd5dc;
+  background: #fff3f6;
+}
+
+.tool-data-status.loading i {
+  width: 18px;
+  height: 18px;
+  border: 2px solid #ddd2ec;
+  border-top-color: #7859bd;
+  border-radius: 50%;
+  animation: content-editor-spin 0.8s linear infinite;
+}
+
+.admin-v3-content .tool-card .mini-table {
+  margin-top: 22px;
+  overflow: hidden;
+  border: 1px solid #e8e0ee;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.admin-v3-content .tool-card .mini-table th {
+  background: #f5f1fa;
+  color: #70627f;
+  font-size: 11px;
+}
+
+.admin-v3-content .tool-card .mini-table td {
+  padding-block: 14px;
+  color: #54485f;
+  font-size: 12px;
+}
+
+.admin-v3-content .tool-card .mini-table .table-button {
+  min-height: 34px;
+  padding: 6px 12px;
+  border: 1px solid #ebcfd7;
+  border-radius: 8px;
+  background: #fff4f6;
+  color: #a7576d;
+}
+
+.tool-file-selected {
+  display: block;
+  margin-top: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #eef8f3;
+  color: #538471;
+  font-size: 11px;
+}
+
+@media (max-width: 900px) {
+  .admin-v3-content .product-tools-tabs {
+    grid-template-columns: repeat(5, 175px);
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-v3-content .tool-card {
+    padding: 16px;
+  }
+
+  .admin-v3-content .tool-card .tool-query {
+    padding: 15px;
+  }
+
+  .tool-data-status {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}

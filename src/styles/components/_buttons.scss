@@ -1,0 +1,18 @@
+// src/styles/components/_buttons.scss
+
+@import '../utils/variables';
+@import '../utils/mixins';
+
+.btn-primary {
+  background-color: $primary-color;
+  color: white;
+  padding: $spacing-sm $spacing-md;
+  border-radius: $border-radius-md;
+  border: none;
+  cursor: pointer;
+  @include transition(background-color);
+
+  &:hover {
+    background-color: darken($primary-color, 10%);
+  }
+}

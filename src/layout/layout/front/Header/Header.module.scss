@@ -1,0 +1,28 @@
+// Header.module.scss
+.header {
+  background: var(--mui-palette-background-paper);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.container {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+.mobile {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 0;
+  gap: 1rem;
+}
+
+.desktop {
+  display: flex;
+  flex-direction: column;
+  
+  padding: 1rem 0;
+}

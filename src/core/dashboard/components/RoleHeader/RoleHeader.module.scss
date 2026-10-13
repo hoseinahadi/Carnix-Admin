@@ -1,0 +1,215 @@
+// src/core/dashboard/components/RoleHeader/RoleHeader.module.scss
+@import '../../../../styles/utils/variables';
+@import '../../../../styles/utils/mixins';
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  background: $background-default;
+  border-radius: $border-radius-lg;
+  padding: $spacing-xl;
+  box-shadow: $shadow-sm;
+  direction: $direction;
+}
+
+.topRow {
+  @include flex-between;
+  flex-wrap: wrap;
+  gap: $spacing-md;
+}
+
+.titleGroup {
+  @include flex-center;
+  gap: $spacing-md;
+
+  .title {
+    @include typography($font-size-2xl, 700, $text-primary);
+    margin: 0;
+  }
+
+  .badge {
+    padding: $spacing-xs $spacing-md;
+    background: rgba($primary-color, 0.1);
+    color: $primary-color;
+    border-radius: $border-radius-full;
+    @include typography($font-size-sm, 600);
+    border: 1px solid rgba($primary-color, 0.1);
+  }
+}
+
+.actions {
+  @include flex-center;
+  gap: $spacing-sm;
+}
+
+.btnRefresh {
+  width: 40px;
+  height: 40px;
+  border: 1.5px solid $color-border;
+  border-radius: $border-radius-sm;
+  background: $background-default;
+  cursor: pointer;
+  @include flex-center;
+  font-size: $font-size-xl;
+  color: $text-secondary;
+  @include transition;
+
+  &:hover:not(:disabled) {
+    border-color: $primary-color;
+    color: $primary-color;
+    background: rgba($primary-color, 0.02);
+  }
+
+  &:disabled { 
+    opacity: 0.5; 
+    cursor: not-allowed; 
+  }
+
+  .spinning {
+    display: inline-block;
+    animation: spin 1s linear infinite;
+  }
+}
+
+.btnAdd {
+  padding: $spacing-sm $spacing-xl;
+  background: $primary-color;
+  color: white;
+  border: none;
+  border-radius: $border-radius-sm;
+  font-family: $font-family-primary;
+  font-size: $font-size-base;
+  font-weight: 600;
+  cursor: pointer;
+  @include transition;
+
+  &:hover:not(:disabled) {
+    background: darken($primary-color, 10%);
+    transform: translateY(-1px);
+    box-shadow: $shadow-md;
+  }
+
+  &:disabled {
+    background: $text-disabled;
+    cursor: not-allowed;
+  }
+}
+
+.filterRow {
+  display: flex;
+  align-items: center;
+  gap: $spacing-lg;
+  flex-wrap: wrap;
+}
+
+.searchWrapper {
+  position: relative;
+  flex: 1;
+  max-width: 500px;
+  min-width: 280px;
+
+  .searchIcon {
+    position: absolute;
+    right: $spacing-md;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: $font-size-base;
+    color: $text-secondary;
+    pointer-events: none;
+  }
+
+  .searchInput {
+    width: 100%;
+    padding: $spacing-sm $spacing-2xl $spacing-sm $spacing-xl;
+    border: 1.5px solid $color-border;
+    border-radius: $border-radius-sm;
+    font-family: $font-family-primary;
+    font-size: $font-size-sm;
+    color: $text-primary;
+    background: $background-paper;
+    @include transition(all);
+    outline: none;
+
+    &:focus {
+      border-color: $primary-color;
+      background: white;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+
+    &::placeholder { 
+      color: $text-disabled; 
+    }
+  }
+
+  .clearSearch {
+    position: absolute;
+    left: $spacing-sm;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba($text-secondary, 0.1);
+    border: none;
+    width: 20px;
+    height: 20px;
+    border-radius: $border-radius-full;
+    cursor: pointer;
+    color: $text-secondary;
+    font-size: 10px;
+    @include flex-center;
+    @include transition;
+
+    &:hover { 
+      background: $error-color; 
+      color: white; 
+    }
+  }
+}
+
+.filterResult {
+  @include flex-center;
+  gap: $spacing-sm;
+  @include typography($font-size-sm, 600, $primary-color);
+  background: rgba($primary-color, 0.05);
+  padding: $spacing-xs $spacing-md;
+  border-radius: $border-radius-sm;
+
+  .dot {
+    width: 6px;
+    height: 6px;
+    background-color: $primary-color;
+    border-radius: 50%;
+  }
+}
+
+.loadingPulse {
+  @include typography($font-size-xs, 400, $text-secondary);
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg) }
+  to { transform: rotate(360deg) }
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}
+
+/* Response handling */
+@include respond-to('md') {
+  .searchWrapper {
+    max-width: 100%;
+    flex: 1 1 100%;
+  }
+  
+  .topRow {
+    flex-direction: column;
+    align-items: stretch;
+    
+    .actions {
+      justify-content: flex-end;
+    }
+  }
+}

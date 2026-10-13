@@ -1,0 +1,17 @@
+.next
+.next-legacy
+node_modules
+.env*.local
+*.log
+*.tsbuildinfo
+
+node_modules/
+.next/
+.next-legacy/
+.env
+.env.local
+.env.development
+.env.production
+.env.staging
+
+*.rar

@@ -1,0 +1,113 @@
+.admin-v3-content .resource-modal:not(.catalog-editor) {
+  width: min(1120px, 96vw);
+  max-height: 92dvh;
+  border: 1px solid rgba(218, 207, 232, 0.9);
+  border-radius: 26px;
+  background: linear-gradient(155deg, #fff 0%, #fdfbff 66%, #f5fbf8 100%);
+  box-shadow: 0 30px 90px rgba(68, 48, 91, 0.2);
+}
+
+.admin-v3-content .resource-modal:not(.catalog-editor) .resource-modal-header {
+  padding: 24px 28px;
+  background: linear-gradient(120deg, #fff 0%, #faf5ff 55%, #f1faf6 100%);
+}
+
+.admin-v3-content .resource-modal:not(.catalog-editor) .resource-modal-body {
+  padding: 22px 28px 28px;
+}
+
+.admin-v3-content .resource-modal:not(.catalog-editor) .form-section {
+  overflow: visible;
+  padding: 0;
+  border: 1px solid #e9e1f1;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.86);
+  box-shadow: 0 10px 32px rgba(85, 65, 108, 0.05);
+}
+
+.admin-v3-content .resource-modal:not(.catalog-editor) .form-section-heading {
+  margin: 0;
+  padding: 20px 22px 16px;
+  border-bottom: 1px solid #eee7f4;
+  background: linear-gradient(120deg, #fbf8ff, #f5fbf8);
+  border-radius: 20px 20px 0 0;
+}
+
+.admin-v3-content .resource-modal:not(.catalog-editor) .form-grid {
+  padding: 22px;
+  gap: 18px;
+}
+
+.admin-v3-content .resource-modal:not(.catalog-editor) .form-grid input,
+.admin-v3-content .resource-modal:not(.catalog-editor) .form-grid select,
+.admin-v3-content .resource-modal:not(.catalog-editor) .form-grid textarea,
+.admin-v3-content .resource-modal:not(.catalog-editor) .catalog-dropdown-trigger {
+  min-height: 50px;
+  border-radius: 13px;
+  border-color: #ddd4e8;
+  background: #fff;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+}
+
+.admin-v3-content .resource-modal:not(.catalog-editor) .form-grid textarea {
+  min-height: 118px;
+  line-height: 1.9;
+  resize: vertical;
+}
+
+.admin-v3-content .resource-modal:not(.catalog-editor) .form-grid input:focus,
+.admin-v3-content .resource-modal:not(.catalog-editor) .form-grid select:focus,
+.admin-v3-content .resource-modal:not(.catalog-editor) .form-grid textarea:focus,
+.admin-v3-content .resource-modal:not(.catalog-editor) .catalog-dropdown-trigger:focus-visible {
+  border-color: #a88bd0;
+  background: #fefcff;
+  box-shadow: 0 0 0 4px rgba(168, 139, 208, 0.14);
+  outline: none;
+}
+
+.admin-v3-content .resource-modal:not(.catalog-editor) > footer {
+  gap: 10px;
+  padding: 16px 28px 20px;
+  border-top: 1px solid #ece5f2;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(12px);
+}
+
+.admin-v3-content .resource-modal:not(.catalog-editor) > footer .primary {
+  min-width: 170px;
+}
+
+.admin-v3-content .resource-reference-field {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.admin-v3-content .resource-reference-error {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: #a05d70;
+  font-size: 12px;
+}
+
+@media (max-width: 720px) {
+  .admin-v3-content .resource-modal:not(.catalog-editor) {
+    width: 100%;
+    max-height: 96dvh;
+    border-radius: 20px;
+  }
+
+  .admin-v3-content .resource-modal:not(.catalog-editor) .resource-modal-header,
+  .admin-v3-content .resource-modal:not(.catalog-editor) .resource-modal-body,
+  .admin-v3-content .resource-modal:not(.catalog-editor) > footer {
+    padding-right: 16px;
+    padding-left: 16px;
+  }
+
+  .admin-v3-content .resource-modal:not(.catalog-editor) .form-grid {
+    grid-template-columns: 1fr;
+    padding: 16px;
+  }
+}

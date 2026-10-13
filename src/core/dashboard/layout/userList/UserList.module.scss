@@ -1,0 +1,64 @@
+// src/components/UserList.module.scss
+@import '../../../../styles/utils/variables';
+@import '../../../../styles/utils/mixins';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-lg;
+  padding: $spacing-xl;
+  min-height: 100%;
+}
+
+.pagination {
+  @include flex-center;
+  gap: $spacing-sm;
+  padding: $spacing-lg 0;
+  flex-wrap: wrap;
+}
+
+.pageNumbers {
+  @include flex-center;
+  gap: $spacing-xs;
+}
+
+.pageBtn {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 $spacing-sm;
+  border: 1.5px solid $color-border;
+  border-radius: $border-radius-sm;
+  background: $background-default;
+  color: $text-primary;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  cursor: pointer;
+  @include transition;
+
+  &:hover:not(:disabled) {
+    border-color: $primary-color;
+    color: $primary-color;
+  }
+
+  &.active {
+    background: $primary-color;
+    border-color: $primary-color;
+    color: white;
+    font-weight: 700;
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+}
+
+.dots {
+  color: $text-secondary;
+  padding: 0 $spacing-xs;
+}
+
+.pageInfo {
+  @include typography($font-size-sm, 400, $text-secondary);
+  margin-right: $spacing-md;
+}

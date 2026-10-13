@@ -1,0 +1,87 @@
+// features/adminOrder/components/AdminOrderStatusModal/AdminOrderStatusModal.module.scss
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 0 0 0;
+
+  .formGroup {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+
+    .label {
+      font-weight: 600;
+      color: #212529;
+      font-size: 1rem;
+      background: #f8f9fa;
+      padding: 0.75rem;
+      border-radius: 6px;
+      border: 1px solid #e9ecef;
+    }
+
+    .select {
+      padding: 0.85rem;
+      border: 1px solid #ced4da;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-family: inherit;
+      color: #495057;
+      background-color: #ffffff;
+      cursor: pointer;
+      transition: all 0.2s;
+
+      &:focus {
+        outline: none;
+        border-color: #86b7fe;
+        box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
+      }
+    }
+  }
+
+  .modalFooter {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    padding-top: 1.25rem;
+    border-top: 1px solid #e9ecef;
+
+    button {
+      padding: 0.6rem 1.25rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+
+      &.cancelButton {
+        background-color: #ffffff;
+        color: #6c757d;
+        border: 1px solid #ced4da;
+
+        &:hover:not(:disabled) {
+          background-color: #f8f9fa;
+          color: #495057;
+        }
+      }
+
+      &.submitButton {
+        background-color: #198754; // رنگ سبز برای ثبت وضعیت
+        color: #ffffff;
+
+        &:hover:not(:disabled) {
+          background-color: #157347;
+          box-shadow: 0 4px 6px rgba(25, 135, 84, 0.2);
+        }
+      }
+
+      &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+      }
+    }
+  }
+}

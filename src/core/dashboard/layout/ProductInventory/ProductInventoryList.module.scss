@@ -1,0 +1,29 @@
+// features/products/components/ProductInventoryList/ProductInventoryList.module.scss
+
+@import '../../../../styles/utils/variables';
+@import '../../../../styles/utils/mixins';
+
+.container {
+  padding: 1.5rem;
+  direction: rtl;
+}
+
+.errorBanner {
+  @include flex-between;
+  background-color: #fff5f5;
+  border: 1px solid #fc8181;
+  border-radius: $border-radius-md;
+  padding: 0.75rem 1rem;
+  margin-bottom: 1rem;
+  color: #c53030;
+  font-size: $font-size-sm;
+
+  button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #c53030;
+    font-size: 1rem;
+    padding: 0;
+  }
+}

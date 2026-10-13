@@ -1,0 +1,6 @@
+@font-face {
+  font-family: YekanBakh;
+  font-weight: 300;
+  font-style: normal;
+  src: url(../fonts/yekanbakh/regular.eot);
+  src: url(../fonts/yekanbakh/regular.eot?#iefix) format("embedded-opentype"), url(../fonts/yekanbakh/regular.woff) format("woff"), url(../fonts/yekanbakh/regular.ttf) format("truetype"); }

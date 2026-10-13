@@ -1,0 +1,148 @@
+// src/core/dashboard/components/CreateUserModal/CreateUserModal.module.scss
+@import '../../../../styles/utils/variables';
+@import '../../../../styles/utils/mixins';
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  @include flex-center;
+  animation: fadeIn 0.2s ease;
+}
+
+.modal {
+  background: $background-default;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-xl;
+  width: 90%;
+  max-width: 600px;
+  max-height: 90vh;
+  overflow-y: auto;
+  direction: rtl;
+  animation: slideUp 0.3s ease;
+  @include custom-scrollbar;
+}
+
+.modalHeader {
+  
+  padding: $spacing-lg $spacing-xl;
+  border-bottom: 1px solid $color-border;
+  position: sticky;
+  top: 0;
+  background: $background-default;
+  z-index: 1;
+
+  h3 {
+    @include typography($font-size-xl, 700, $text-primary);
+    margin: 0;
+  }
+
+  .closeBtn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: $background-paper;
+    border-radius: $border-radius-full;
+    cursor: pointer;
+    @include flex-center;
+    @include typography($font-size-sm, 600, $text-secondary);
+    @include transition;
+
+    &:hover {
+      background: rgba($error-color, 0.1);
+      color: $error-color;
+    }
+  }
+}
+
+.form { padding: $spacing-xl; }
+
+.formGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-md;
+
+  @include respond-to('sm') { grid-template-columns: 1fr; }
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+
+  label {
+    @include typography($font-size-sm, 600, $text-primary);
+    span { color: $error-color; }
+  }
+
+  input, select {
+    padding: $spacing-sm $spacing-md;
+    border: 1.5px solid $color-border;
+    border-radius: $border-radius-sm;
+    font-family: $font-family-primary;
+    font-size: $font-size-sm;
+    color: $text-primary;
+    background: $background-default;
+    @include transition(border-color);
+    outline: none;
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 0 3px rgba($primary-color, 0.1);
+    }
+  }
+
+  .error {
+    @include typography($font-size-xs, 400, $error-color);
+  }
+}
+
+.formActions {
+  
+  gap: $spacing-md;
+  margin-top: $spacing-xl;
+  padding-top: $spacing-lg;
+  border-top: 1px solid $color-border;
+
+  button {
+    padding: $spacing-sm $spacing-xl;
+    border: none;
+    border-radius: $border-radius-sm;
+    font-family: $font-family-primary;
+    font-size: $font-size-base;
+    font-weight: 600;
+    cursor: pointer;
+    @include transition;
+
+    &:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: $shadow-sm;
+    }
+
+    &:disabled { opacity: 0.6; cursor: not-allowed; }
+  }
+
+  .btnCancel {
+    background: $background-paper;
+    color: $text-secondary;
+  }
+
+  .btnSubmit {
+    background: $primary-color;
+    color: white;
+
+    &:hover:not(:disabled) { background: darken($primary-color, 10%); }
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px) }
+  to { opacity: 1; transform: translateY(0) }
+}

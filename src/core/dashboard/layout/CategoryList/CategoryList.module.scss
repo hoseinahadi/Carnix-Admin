@@ -1,0 +1,53 @@
+@import '../../../../styles/utils/variables';
+@import '../../../../styles/utils/mixins';
+
+.categoryListContainer {
+  direction: $direction;
+  text-align: $text-align;
+  padding: $spacing-xl;
+  min-height: 100vh;
+  font-family: $font-family-base;
+
+  .content {
+    max-width: map-get($breakpoints, 'xxl');
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    animation: slideUp $transition-slow ease-out;
+  }
+}
+
+.tableWrapper {
+  background: white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+}
+
+.loadingContainer {
+  @include flex-center;
+  flex-direction: column;
+  padding: $spacing-3xl;
+  gap: $spacing-md;
+  color: $primary-color;
+
+  .spinner {
+    width: 40px;
+    height: 40px;
+    border: 3px solid rgba($primary-color, 0.1);
+    border-top: 3px solid $primary-color;
+    border-radius: $border-radius-full;
+    animation: spin $transition-slow linear infinite;
+  }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}

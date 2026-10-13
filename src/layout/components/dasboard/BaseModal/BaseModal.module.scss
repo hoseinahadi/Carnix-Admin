@@ -1,0 +1,71 @@
+// src/components/ui/Modal/BaseModal.module.scss
+@import '../../../../styles/utils/variables';
+@import '../../../../styles/utils/mixins';
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  @include flex-center;
+  animation: fadeIn 0.2s ease;
+}
+
+.modalContent {
+  background: $background-default;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-xl;
+  width: 90%;
+  max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+  direction: $direction;
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.header {
+  @include flex-between;
+  padding: $spacing-lg $spacing-xl;
+  border-bottom: 1px solid $color-border;
+  background: $background-default;
+  border-radius: $border-radius-lg $border-radius-lg 0 0;
+
+  h3 {
+    @include typography($font-size-xl, 700, $text-primary);
+    margin: 0;
+  }
+
+  .closeBtn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    border-radius: $border-radius-full;
+    cursor: pointer;
+    @include flex-center;
+    color: $text-secondary;
+    @include transition;
+
+    &:hover {
+      background: rgba($error-color, 0.1);
+      color: $error-color;
+    }
+  }
+}
+
+.body {
+  padding: $spacing-xl;
+  overflow-y: auto;
+  @include custom-scrollbar;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0 }
+  to { opacity: 1 }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px) scale(0.98) }
+  to { opacity: 1; transform: translateY(0) scale(1) }
+}

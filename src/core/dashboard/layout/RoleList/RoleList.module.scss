@@ -1,0 +1,123 @@
+// src/components/RoleList/RoleList.module.scss
+@import '../../../../styles/utils/variables';
+@import '../../../../styles/utils/mixins';
+
+.roleListWrapper {
+  direction: $direction;
+  text-align: $text-align;
+  padding: $spacing-xl;
+  background-color: transparent; // یا $background-paper اگر کل صفحه باید خاکستری باشد
+  min-height: 100vh;
+  font-family: $font-family-base;
+
+  /* کانتینر محتوا برای ایجاد محدودیت عرض */
+  .content {
+    max-width: map-get($breakpoints, 'xxl');
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-lg;
+    
+    // انیمیشن ورود بر اساس متغیر transition
+    animation: slideUp $transition-slow ease-out;
+  }
+
+  /* استایل وضعیت‌های بارگذاری و خطا */
+  .loadingState, .errorState {
+    @include flex-center;
+    flex-direction: column;
+    padding: $spacing-3xl;
+    background: $background-default;
+    border-radius: $border-radius-lg;
+    box-shadow: $shadow-sm;
+    margin-top: $spacing-xl;
+    border: 1px solid $color-border;
+    gap: $spacing-md;
+  }
+
+  .loadingState {
+    color: $primary-color;
+    
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid rgba($primary-color, 0.1);
+      border-top: 3px solid $primary-color;
+      border-radius: $border-radius-full;
+      animation: spin $transition-slow linear infinite;
+    }
+    
+    span {
+      font-weight: 500;
+      font-size: $font-size-base;
+    }
+  }
+
+  .errorState {
+    color: $error-color;
+    background: rgba($error-color, 0.05);
+    border-color: rgba($error-color, 0.2);
+    
+    .errorIcon {
+      font-size: $font-size-3xl;
+      margin-bottom: $spacing-sm;
+    }
+    
+    .retryBtn {
+      margin-top: $spacing-md;
+      padding: $spacing-sm $spacing-xl;
+      background: $error-color;
+      color: $color-white;
+      border: none;
+      border-radius: $border-radius-md;
+      cursor: pointer;
+      transition: $transition-normal;
+
+      &:hover {
+        opacity: 0.9;
+        box-shadow: $shadow-md;
+      }
+    }
+  }
+
+  /* بخش خالی (در صورتی که نقشی یافت نشد) */
+  .emptyState {
+    @include flex-center;
+    padding: $spacing-3xl;
+    background: $background-default;
+    border-radius: $border-radius-lg;
+    border: 2px dashed $color-border;
+    color: $text-secondary;
+    font-size: $font-size-lg;
+  }
+}
+
+/* تعریف انیمیشن‌ها */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* واکنش‌گرایی (Responsive) */
+@include respond-to('sm') {
+  .roleListWrapper {
+    padding: $spacing-md;
+    
+    .content {
+      gap: $spacing-md;
+    }
+  }
+}
+
+

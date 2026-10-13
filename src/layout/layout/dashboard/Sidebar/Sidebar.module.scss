@@ -1,0 +1,107 @@
+@import '../../../../styles/utils/variables';
+@import '../../../../styles/utils/mixins';
+@import '../../../../styles/utils/fonts';
+
+
+.sidebar {
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  background: #0f172a;
+  color: $light-color;
+  transition: width 0.3s ease;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 12px 0 40px rgba(15,23,42,.08);
+  overflow-y: auto;
+
+  &.open {
+    width: 250px;
+        overflow-y: auto;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  &.closed {
+    width: 0;
+  }
+}
+
+.sidebarHeader {
+  padding: $spacing-lg;
+  border-bottom: 1px solid rgba($light-color, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 64px;
+}
+
+.logo {
+  font-weight: $font-size-lg;
+  color: $light-color;
+  margin: 0;
+}
+
+.logoCollapsed {
+  font-weight: $font-size-lg;
+  color: $light-color;
+  margin: 0 auto;
+  font-size: $font-size-lg;
+}
+
+.toggleButton {
+  color: $light-color !important;
+  padding: $spacing-xs !important;
+
+  &:hover {
+    background-color: rgba($light-color, 0.1) !important;
+  }
+}
+
+.menuList {
+  flex: 1;
+  padding: $spacing-md 0;
+  width: 90%;
+}
+
+.menuItem {
+  color: rgba($light-color, 0.8) !important;
+  margin: $spacing-xs $spacing-md !important;
+  border-radius: 14px !important;
+  transition: all 0.2s ease !important;
+
+  &:hover {
+    background-color: rgba($light-color, 0.1) !important;
+    color: $light-color !important;
+  }
+
+  &.active {
+    background: linear-gradient(135deg,#6366f1,#8b5cf6) !important;
+    color: $light-color !important;
+    font-weight: $font-size-lg;
+  }
+}
+
+.menuIcon {
+  color: inherit !important;
+  min-width: 40px !important;
+}
+
+.menuText {
+  font-size: $font-size-base !important;
+  font-family: $font-family-primary;
+  text-align: right;
+}
+
+.sidebarFooter {
+  padding: $spacing-md;
+  border-top: 1px solid rgba($light-color, 0.1);
+  text-align: center;
+}
+
+.version {
+  color: rgba($light-color, 0.6);
+  font-size: $font-size-xs;
+}

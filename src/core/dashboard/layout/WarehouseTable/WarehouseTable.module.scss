@@ -1,0 +1,95 @@
+// features/warehouse/components/WarehouseTable/WarehouseTable.module.scss
+@import '../../../../styles/utils/variables';
+@import '../../../../styles/utils/mixins';
+
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  background: #fff;
+  border-radius: $border-radius-md;
+  box-shadow: $shadow-sm;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: right;
+  white-space: nowrap;
+
+  th, td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+  }
+
+  th {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    font-size: $font-size-sm;
+  }
+
+  tr:hover {
+    background-color: #f8f9fa;
+  }
+}
+
+.boldText {
+  font-weight: 600;color: #212529;
+}
+
+.activeStatus {
+  padding: 4px 12px;
+  background: #d4edda;
+  color: #155724;
+  border-radius: $border-radius-sm;
+  font-size: 0.85rem;
+}
+
+.inactiveStatus {
+  padding: 4px 12px;
+  background: #f8d7da;
+  color: #721c24;
+  border-radius: $border-radius-sm;
+  font-size: 0.85rem;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+
+  button {
+    padding: 6px 12px;
+    border-radius: $border-radius-sm;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    @include transition;
+
+    &.inventoryBtn {
+      background-color: #17a2b8;
+      color: #fff;
+      &:hover { background-color: #138496; }
+    }
+
+    &.editBtn {
+      background-color: #ffc107;
+      color: #000;
+      &:hover { background-color: #e0a800; }
+    }
+
+    &.deleteBtn {
+      background-color: #dc3545;
+      color: #fff;
+      &:hover { background-color: #c82333; }
+    }
+  }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 32px;
+  color: #6c757d;
+  background: #fff;
+  border-radius: $border-radius-md;border: 1px dashed #ced4da;
+}

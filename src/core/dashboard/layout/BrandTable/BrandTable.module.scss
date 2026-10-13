@@ -1,0 +1,103 @@
+// src/core/dashboard/brand/layout/BrandTable/BrandTable.module.scss
+
+.noData {
+  padding: 3rem;
+  text-align: center;
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+.tableWrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.roleTable {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: right;
+  white-space: nowrap;
+
+  th, td {
+    padding: 1rem 1.25rem;
+    border-bottom: 1px solid #e2e8f0;
+  }
+
+  th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    font-size: 0.875rem;
+  }
+
+  tbody tr {
+    transition: background-color 0.2s;
+
+    &:hover {
+      background-color: #f1f5f9;
+    }
+  }
+}
+
+.systemName {
+  font-weight: 600;
+  color: #0f172a;
+}
+
+.desc {
+  max-width: 200px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #64748b;
+}
+
+.badge {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  &.active {
+    background-color: #d1fae5;
+    color: #059669;
+  }
+
+  &.inactive {
+    background-color: #fee2e2;
+    color: #dc2626;
+  }
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+
+  button {
+    padding: 0.35rem 0.75rem;
+    border-radius: 6px;
+    font-size: 0.875rem;
+    cursor: pointer;
+    border: 1px solid transparent;
+    transition: all 0.2s;
+  }
+
+  .btnEdit {
+    background: #eff6ff;
+    color: #2563eb;
+
+    &:hover {
+      background: #dbeafe;
+      border-color: #bfdbfe;
+    }
+  }
+
+  .btnDelete {
+    background: #fef2f2;
+    color: #dc2626;
+
+    &:hover {
+      background: #fee2e2;
+      border-color: #fecaca;
+    }
+  }
+}

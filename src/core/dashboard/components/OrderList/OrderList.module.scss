@@ -1,0 +1,49 @@
+// features/adminOrder/components/AdminOrderList/AdminOrderList.module.scss
+
+.container {
+  padding: 1.5rem;
+  background-color: #f8f9fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  font-family: inherit;
+
+  // استایل بنر خطا
+  .errorBanner {
+    background-color: #f8d7da;
+    color: #721c24;
+    padding: 1rem 1.25rem;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #f5c6cb;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+
+    span {
+      font-weight: 500;
+    }
+
+    button {
+      background: none;
+      border: none;
+      color: #721c24;
+      font-size: 1.2rem;
+      cursor: pointer;
+      padding: 0 0.5rem;
+      transition: opacity 0.2s;
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+    gap: 1rem;
+  }
+}

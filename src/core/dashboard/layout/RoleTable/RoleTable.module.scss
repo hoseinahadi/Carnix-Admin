@@ -1,0 +1,86 @@
+// src/core/dashboard/layout/roleTable/RoleTable.module.scss
+@import '../../../../styles/utils/variables';
+@import '../../../../styles/utils/mixins';
+
+.tableWrapper {
+  background: white;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-sm;
+  overflow: hidden;
+  direction: rtl;
+
+  .roleTable {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      background: #f8fafc;
+      padding: $spacing-md;
+      text-align: right;
+      font-weight: 600;
+      color: $text-secondary;
+      border-bottom: 2px solid #edf2f7;
+    }
+
+    td {
+      padding: $spacing-md;
+      border-bottom: 1px solid #edf2f7;
+      vertical-align: middle;
+    }
+  }
+}
+
+.systemName {
+  font-family: monospace;
+  color: $primary-color;
+  background: rgba($primary-color, 0.05);
+  padding: 4px 8px;
+  border-radius: 4px;
+}
+
+.levelWrapper {
+  width: 100px;
+  height: 8px;
+  background: #eee;
+  border-radius: 4px;
+  position: relative;
+  
+  .levelBar {
+    height: 100%;
+    background: linear-gradient(90deg, $primary-color, $info-color);
+    border-radius: 4px;
+  }
+
+  span {
+    position: absolute;
+    right: -25px;
+    top: -6px;
+    font-size: 12px;
+  }
+}
+
+.badge {
+  padding: 4px 12px;
+  border-radius: $border-radius-full;
+  font-size: 12px;
+  
+  &.active { background: #dcfce7; color: #166534; }
+  &.inactive { background: #fee2e2; color: #991b1b; }
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+  
+  button {
+    padding: 6px 12px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    transition: 0.2s;
+
+    &.btnEdit { background: #eff6ff; color: #1e40af; &:hover { background: #dbeafe; } }
+    &.btnDelete { background: #fff1f2; color: #9f1239; &:hover { background: #ffe4e6; } }
+  }
+}

@@ -1,0 +1,138 @@
+// features/products/components/ProductInventoryModal/ProductInventoryModal.module.scss
+
+@import '../../../../styles/utils/variables';
+@import '../../../../styles/utils/mixins';
+
+.modalForm {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-md;
+  direction: $direction;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-xs;
+}
+
+.label {
+  font-size: $font-size-sm;
+  font-weight: 500;
+  color: $text-primary;
+  font-family: $font-family-primary;
+}
+
+.required {
+  color: $error-color;
+  margin-right: 2px;
+}
+
+.input {
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  background-color: $background-default;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-md;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  color: $text-primary;
+  @include transition(border-color, box-shadow);
+  outline: none;
+  direction: $direction;
+
+  &::placeholder {
+    color: $text-disabled;
+  }
+
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.12);
+  }
+}
+
+.select {
+  width: 100%;
+  padding: $spacing-sm $spacing-md;
+  padding-left: 2rem;
+  background-color: $background-default;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-md;
+  font-family: $font-family-primary;
+  font-size: $font-size-sm;
+  color: $text-primary;
+  cursor: pointer;
+  appearance: none;
+  @include transition(border-color, box-shadow);
+  outline: none;
+  direction: $direction;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666666' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: left 0.75rem center;
+
+  &:focus {
+    border-color: $primary-color;
+    box-shadow: 0 0 0 3px rgba($primary-color, 0.12);
+  }
+}
+
+.inputError {
+  border-color: $error-color !important;
+  box-shadow: 0 0 0 3px rgba($error-color, 0.1) !important;
+}
+
+.errorMsg {
+  font-size: 0.75rem;
+  color: $error-color;
+}
+
+.modalFooter {
+  display: flex;
+  gap: $spacing-md;
+  margin-top: $spacing-lg;
+  padding-top: $spacing-md;
+  border-top: 1px solid $color-border;
+}
+
+.cancelButton {
+  padding: $spacing-sm $spacing-lg;
+  background: none;
+  border: 1px solid $color-border;
+  border-radius: $border-radius-md;
+  font-size: $font-size-sm;
+  font-family: $font-family-primary;
+  cursor: pointer;
+  @include transition;
+
+  &:hover {
+    background: $background-paper;
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.submitButton {
+  @include flex-center;
+  gap: $spacing-sm;
+  padding: $spacing-sm $spacing-xl;
+  background-color: $primary-color;
+  color: white;
+  border: none;
+  border-radius: $border-radius-md;
+  font-size: $font-size-sm;
+  font-family: $font-family-primary;
+  cursor: pointer;
+  @include transition;
+
+  &:hover:not(:disabled) {
+    background-color: darken($primary-color, 10%);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}

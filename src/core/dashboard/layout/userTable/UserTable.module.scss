@@ -1,0 +1,198 @@
+// src/components/UserTable.scss
+@import '../../../../styles/utils/variables';
+@import '../../../../styles/utils/mixins';
+// src/components/UserTable.module.scss
+
+.userTableContainer {
+  background: $background-default;
+  border-radius: $border-radius-lg;
+  box-shadow: $shadow-md;
+  padding: $spacing-xl;
+  direction: rtl;
+
+  .tableHeader {
+    @include flex-between;
+    margin-bottom: $spacing-lg;
+    padding-bottom: $spacing-md;
+    border-bottom: 2px solid $background-paper;
+
+    h2 {
+      @include typography($font-size-2xl, 700, $text-primary);
+      margin: 0;
+    }
+
+    .userCount {
+      @include typography($font-size-sm, 500, $text-secondary);
+      background: $background-paper;
+      padding: $spacing-xs $spacing-md;
+      border-radius: $border-radius-full;
+    }
+  }
+
+  .tableWrapper {
+    overflow-x: auto;
+    @include custom-scrollbar;
+  }
+
+  .userTable {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: $font-family-primary;
+
+    thead {
+      background: $background-paper;
+      
+      tr {
+        th {
+          @include typography($font-size-sm, 600, $text-primary);
+          padding: $spacing-md;
+          text-align: right;
+          white-space: nowrap;
+          border-bottom: 2px solid $color-border;
+        }
+      }
+    }
+
+    tbody {
+      tr {
+        @include transition(background-color);
+        border-bottom: 1px solid $background-paper;
+
+        &:hover {
+          background: rgba($primary-color, 0.05);
+        }
+
+        td {
+          @include typography($font-size-sm, 400, $text-primary);
+          padding: $spacing-md;
+          text-align: right;
+          vertical-align: middle;
+        }
+      }
+    }
+  }
+
+  .emailCell,
+  .phoneCell {
+    @include flex-start;
+    gap: $spacing-xs;
+
+    .verifiedBadge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 18px;
+      height: 18px;
+      background: $success-color;
+      color: white;
+      border-radius: $border-radius-full;
+      font-size: $font-size-xs;
+      font-weight: 700;
+    }
+  }
+
+  .roleBadge {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    background: rgba($info-color, 0.1);
+    color: $info-color;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-xs;
+    font-weight: 500;
+  }
+
+  .statusBadge {
+    display: inline-block;
+    padding: $spacing-xs $spacing-sm;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-xs;
+    font-weight: 500;
+
+    &.active {
+      background: rgba($success-color, 0.1);
+      color: $success-color;
+    }
+
+    &.inactive {
+      background: rgba($error-color, 0.1);
+      color: $error-color;
+    }
+  }
+
+  .actionButtons {
+    @include flex-start;
+    gap: $spacing-sm;
+
+    button {
+      padding: $spacing-xs $spacing-md;
+      border: none;
+      border-radius: $border-radius-sm;
+      font-family: $font-family-primary;
+      font-size: $font-size-sm;
+      font-weight: 500;
+      cursor: pointer;
+      @include transition;
+
+      &:hover {
+        transform: translateY(-2px);
+        box-shadow: $shadow-sm;
+      }
+
+      &:active {
+        transform: translateY(0);
+      }
+    }
+
+    .btnEdit {
+      background: $info-color;
+      color: white;
+
+      &:hover {
+        background: darken($info-color, 10%);
+      }
+    }
+
+    .btnDelete {
+      background: $error-color;
+      color: white;
+
+      &:hover {
+        background: darken($error-color, 10%);
+      }
+    }
+  }
+
+  .loading,
+  .error,
+  .emptyState {
+    @include flex-center;
+    @include typography($font-size-base, 500, $text-secondary);
+    padding: $spacing-2xl;
+    text-align: center;
+  }
+
+  .error {
+    color: $error-color;
+  }
+
+  @include respond-to('md') {
+    .userTable {
+      font-size: $font-size-sm;
+      
+      thead tr th,
+      tbody tr td {
+        padding: $spacing-sm;
+      }
+    }
+  }
+
+  @include respond-to('sm') {
+    padding: $spacing-md;
+
+    .tableHeader {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $spacing-sm;
+    }
+  }
+}

@@ -1,0 +1,49 @@
+@import '../../../../styles/utils/variables';
+@import '../../../../styles/utils/mixins';
+
+.adminLayout {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(180deg,#f8fafc,#eef2ff);
+  direction: rtl;
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  transition: margin-right 0.3s ease;
+  margin-right: 250px; // یا از متغیر استفاده کنید اگر تعریف شده
+
+  &.sidebarClosed {
+    margin-right: 0; // یا از متغیر استفاده کنید
+  }
+}
+
+.pageContent {
+  flex: 1;
+  padding: 40px;
+  overflow-y: auto;
+  background: linear-gradient(180deg,#f8fafc,#eef2ff);
+
+  @include respond-to('tablet') {
+    padding: $spacing-lg;
+  }
+
+  @include respond-to('mobile') {
+    padding: $spacing-md;
+  }
+}
+
+.footer {
+  padding: $spacing-md $spacing-xl;
+  background-color: $primary-color;
+  color: $background-default;
+  text-align: center;
+  font-size: $font-size-sm;
+  border-top: 1px solid $text-disabled;
+
+  @include respond-to('mobile') {
+    padding: $spacing-sm $spacing-md;
+  }
+}

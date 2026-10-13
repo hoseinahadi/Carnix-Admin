@@ -1,0 +1,116 @@
+.tableContainer {
+  width: 100%;
+  overflow-x: auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: right;
+  white-space: nowrap; // جلوگیری از شکستن خطوط در جدول‌های شلوغ
+
+  th, td {
+    padding: 14px 16px;
+    border-bottom: 1px solid #eee;
+    vertical-align: middle;
+  }
+
+  th {
+    background-color: #f8f9fa;
+    color: #495057;
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  tr:hover {
+    background-color: #f8f9fa;
+  }
+}
+
+.imageCell {
+  text-align: center;
+}
+
+.thumbnail {
+  width: 40px;
+  height: 40px;
+  border-radius: 6px;
+  object-fit: cover;
+  border: 1px solid #e0e0e0;
+}
+
+.noImage {
+  font-size: 0.75rem;
+  color: #adb5bd;
+  background: #f1f3f5;
+  padding: 8px;
+  border-radius: 6px;
+  display: inline-block;
+}
+
+.boldText {
+  font-weight: 600;
+  color: #212529;
+}
+
+.ltrText {
+  text-align: left;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.badge {
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.activeBadge {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.inactiveBadge {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.actions {
+  display: flex;
+  gap: 8px;
+
+  button {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: background-color 0.2s ease;
+
+    &.editBtn {
+      background-color: #ffc107;
+      color: #000;
+      &:hover { background-color: #e0a800; }
+    }
+
+    &.deleteBtn {
+      background-color: #dc3545;
+      color: #fff;
+      &:hover { background-color: #c82333; }
+    }
+  }
+}
+
+.emptyState {
+  text-align: center;
+  padding: 32px;
+  color: #6c757d;
+  background: #fff;
+  border-radius: 8px;
+  border: 1px dashed #ced4da;
+}

@@ -1,0 +1,2227 @@
+[
+  {
+    "file": "AddressesController.cs",
+    "controller": "AddressesController",
+    "baseRoute": "api/Addresses",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/Addresses/GetAll",
+        "action": "GetAll",
+        "args": "[FromQuery] int page = 1, [FromQuery] int pageSize = 10",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Addresses/GetById/{id}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/Addresses/Create",
+        "action": "Create",
+        "args": "[FromBody] CreateAddressDto model",
+        "auth": "anonymous"
+      },
+      {
+        "method": "PUT",
+        "path": "api/Addresses/Update/{id}",
+        "action": "Update",
+        "args": "int id, [FromBody] CreateAddressDto model",
+        "auth": "anonymous"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/Addresses/Delete/{id}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "anonymous"
+      },
+      {
+        "method": "PUT",
+        "path": "api/Addresses/SetDefault/{id}",
+        "action": "SetDefault",
+        "args": "int id",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "AuthController.cs",
+    "controller": "AuthController",
+    "baseRoute": "api/Auth",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/Auth/send-otp",
+        "action": "SendOtp",
+        "args": "[FromBody] SendOtpDto dto",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/Auth/verify-otp",
+        "action": "VerifyOtp",
+        "args": "[FromBody] VerifyOtpDto dto",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/Auth/register",
+        "action": "Register",
+        "args": "[FromBody] UserCreateDto dto",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/Auth/login",
+        "action": "Login",
+        "args": "[FromBody] LoginRequestDto model",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/Auth/logout",
+        "action": "Logout",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/Auth/me",
+        "action": "GetCurrentUser",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/Auth/change-password",
+        "action": "ChangePassword",
+        "args": "[FromBody] ChangePasswordDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "PUT",
+        "path": "api/Auth/profile",
+        "action": "UpdateProfile",
+        "args": "[FromBody] UserProfileUpdateDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/Auth/validate-token",
+        "action": "ValidateToken",
+        "args": "",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Auth/roles",
+        "action": "GetUserRoles",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/Auth/remove-role/{userId:int}/{roleId:int}",
+        "action": "RemoveRole",
+        "args": "int userId, int roleId",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/Auth/revoke-all-tokens/{userId:int}",
+        "action": "RevokeAllUserTokens",
+        "args": "int userId",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/Auth/deactivate/{userId:int}",
+        "action": "DeactivateUser",
+        "args": "int userId",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/Auth/activate/{userId:int}",
+        "action": "ActivateUser",
+        "args": "int userId",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "BrandsController.cs",
+    "controller": "BrandsController",
+    "baseRoute": "api/brands",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/brands/create",
+        "action": "Create",
+        "args": "[FromBody] BrandDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "PUT",
+        "path": "api/brands/update/{id:int}",
+        "action": "Update",
+        "args": "int id, [FromBody] BrandDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/brands/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/brands/get-all",
+        "action": "GetAll",
+        "args": "[FromQuery] string? keyword = null, [FromQuery] int page = 1, [FromQuery] int pageSize = 500",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/brands/get-by-id/{id:int}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "CartController.cs",
+    "controller": "CartController",
+    "baseRoute": "api/Cart",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/Cart/my-cart",
+        "action": "GetMyCart",
+        "args": "",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/Cart/add",
+        "action": "AddToCart",
+        "args": "[FromBody] AddToCartRequestDto request",
+        "auth": "anonymous"
+      },
+      {
+        "method": "PUT",
+        "path": "api/Cart/items/{cartItemId:int}/quantity",
+        "action": "UpdateItemQuantity",
+        "args": "int cartItemId, [FromBody] UpdateQuantityRequestDto request",
+        "auth": "anonymous"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/Cart/items/{cartItemId:int}",
+        "action": "RemoveItem",
+        "args": "int cartItemId",
+        "auth": "anonymous"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/Cart/{cartId:int}/clear",
+        "action": "ClearCart",
+        "args": "int cartId",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/Cart/merge",
+        "action": "MergeCart",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/Cart/{cartId:int}/coupon",
+        "action": "ApplyCoupon",
+        "args": "int cartId, [FromBody] ApplyCouponRequestDto request",
+        "auth": "anonymous"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/Cart/{cartId:int}/coupon",
+        "action": "RemoveCoupon",
+        "args": "int cartId",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Cart/{cartId:int}/validate",
+        "action": "ValidateCart",
+        "args": "int cartId",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Cart/all-carts",
+        "action": "GetAllCarts",
+        "args": "[FromQuery] int page = 1, [FromQuery] int pageSize = DefaultPageSize, [FromQuery] bool includeAbandoned = true",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "CategoryController.cs",
+    "controller": "CategoryController",
+    "baseRoute": "api/Category",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/Category",
+        "action": "GetAll",
+        "args": "[FromQuery] int page = 1, [FromQuery] int pageSize = 10",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/Category/menu",
+        "action": "GetMenu",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/Category/{id}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/Category/search",
+        "action": "Search",
+        "args": "[FromQuery] string keyword, [FromQuery] int page = 1, [FromQuery] int pageSize = 10",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/Category",
+        "action": "Create",
+        "args": "[FromBody] CreateCategoryDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "PUT",
+        "path": "api/Category/{id}",
+        "action": "Update",
+        "args": "int id, [FromBody] UpdateCategoryDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/Category/{id}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/Category/bulk",
+        "action": "BulkCreate",
+        "args": "[FromBody] IEnumerable<CreateCategoryDto> dtos",
+        "auth": "auth"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/Category/bulk",
+        "action": "BulkDelete",
+        "args": "[FromBody] IEnumerable<int> ids",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "CategoryFeatureController.cs",
+    "controller": "CategoryFeatureController",
+    "baseRoute": "api/CategoryFeature",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/CategoryFeature",
+        "action": "GetAll",
+        "args": "[FromQuery] int? categoryId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/CategoryFeature/{id}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/CategoryFeature",
+        "action": "Create",
+        "args": "[FromBody] CategoryFeatureDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "PUT",
+        "path": "api/CategoryFeature/{id}",
+        "action": "Update",
+        "args": "int id, [FromBody] CategoryFeatureDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/CategoryFeature/{id}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "ContentManagerController.cs",
+    "controller": "ContentManagerController",
+    "baseRoute": "api/ContentManager",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/ContentManager/all",
+        "action": "GetAllContents",
+        "args": "[FromQuery] int page = 1, [FromQuery] int pageSize = 10, [FromQuery] string? status = null",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/ContentManager/CreateFullContent",
+        "action": "CreateFullContent",
+        "args": "[FromBody] CreateFullContentDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/ContentManager/{id:int}/versions",
+        "action": "CreateNewVersion",
+        "args": "int id, [FromBody] CreateVersionRequestDto request",
+        "auth": "auth"
+      },
+      {
+        "method": "PATCH",
+        "path": "api/ContentManager/{id:int}/publish",
+        "action": "PublishContent",
+        "args": "int id",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/ContentManager/display/{slug}",
+        "action": "GetContentForDisplay",
+        "args": "string slug",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/ContentManager/latest",
+        "action": "GetLatestContents",
+        "args": "[FromQuery] int count = 3",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "CouponController.cs",
+    "controller": "CouponController",
+    "baseRoute": "api/Coupon",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/Coupon/validate",
+        "action": "Validate",
+        "args": "[FromQuery] string code",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "DashboardController.cs",
+    "controller": "DashboardController",
+    "baseRoute": "api/dashboard",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/dashboard/stats",
+        "action": "GetStats",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/dashboard/trends",
+        "action": "GetTrends",
+        "args": "",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "FeatureDefinitionController.cs",
+    "controller": "FeatureDefinitionController",
+    "baseRoute": "api/FeatureDefinition",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/FeatureDefinition",
+        "action": "GetAll",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/FeatureDefinition/{id}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/FeatureDefinition",
+        "action": "Create",
+        "args": "[FromBody] CreateFeatureDefinitionDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "PUT",
+        "path": "api/FeatureDefinition/{id}",
+        "action": "Update",
+        "args": "int id, [FromBody] UpdateFeatureDefinitionDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/FeatureDefinition/{id}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "FeatureOptionController.cs",
+    "controller": "FeatureOptionController",
+    "baseRoute": "api/FeatureOption",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/FeatureOption",
+        "action": "GetAll",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/FeatureOption/{id}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/FeatureOption",
+        "action": "Create",
+        "args": "[FromBody] CreateFeatureOptionDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "PUT",
+        "path": "api/FeatureOption/{id}",
+        "action": "Update",
+        "args": "int id, [FromBody] UpdateFeatureOptionDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/FeatureOption/{id}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "FeatureValueController.cs",
+    "controller": "FeatureValueController",
+    "baseRoute": "api/FeatureValue",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/FeatureValue",
+        "action": "GetAll",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/FeatureValue/{id}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/FeatureValue",
+        "action": "Create",
+        "args": "[FromBody] CreateFeatureValueDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "PUT",
+        "path": "api/FeatureValue/{id}",
+        "action": "Update",
+        "args": "int id, [FromBody] UpdateFeatureValueDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/FeatureValue/{id}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "OrderController.cs",
+    "controller": "AdminOrderController",
+    "baseRoute": "api/admin/orders",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/admin/orders/place-order",
+        "action": "PlaceOrderAdmin",
+        "args": "[FromBody] PlaceOrderRequestDto request",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/orders",
+        "action": "GetAllOrders",
+        "args": "[FromQuery] int page = 1, [FromQuery] int pageSize = 20, [FromQuery] string? status = null, [FromQuery] string? search = null",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/orders/{id:int}",
+        "action": "GetOrderById",
+        "args": "[FromRoute] int id",
+        "auth": "auth"
+      },
+      {
+        "method": "PATCH",
+        "path": "api/admin/orders/{id:int}/status",
+        "action": "ChangeOrderStatus",
+        "args": "[FromRoute] int id, [FromBody] ChangeOrderStatusRequestDto request",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/admin/orders/{id:int}/cancel",
+        "action": "CancelOrder",
+        "args": "[FromRoute] int id, [FromBody] CancelOrderAdminRequestDto request",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/orders/{id:int}/tracking",
+        "action": "GetOrderTracking",
+        "args": "[FromRoute] int id",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/orders/statistics",
+        "action": "GetOrderStatistics",
+        "args": "",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "OrderStatusController.cs",
+    "controller": "OrderStatusController",
+    "baseRoute": "api/OrderStatus",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/OrderStatus",
+        "action": "GetAll",
+        "args": "",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/OrderStatus/{id}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/OrderStatus",
+        "action": "Create",
+        "args": "[FromBody] OrderStatus orderStatus",
+        "auth": "anonymous"
+      },
+      {
+        "method": "PUT",
+        "path": "api/OrderStatus/{id}",
+        "action": "Update",
+        "args": "int id, [FromBody] OrderStatus orderStatus",
+        "auth": "anonymous"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/OrderStatus/{id}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "PaymentMethodController.cs",
+    "controller": "PaymentMethodController",
+    "baseRoute": "api/PaymentMethod",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/PaymentMethod",
+        "action": "GetAll",
+        "args": "",
+        "auth": "none"
+      }
+    ]
+  },
+  {
+    "file": "Product360ViewController.cs",
+    "controller": "Product360ViewController",
+    "baseRoute": "api/product-360-views",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/product-360-views/get-all",
+        "action": "GetAll",
+        "args": "",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-360-views/get-by-id/{id:int}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-360-views/get-by-product/{productId:int}",
+        "action": "GetByProductId",
+        "args": "int productId",
+        "auth": "none"
+      },
+      {
+        "method": "POST",
+        "path": "api/product-360-views/create",
+        "action": "Create",
+        "args": "[FromBody] Product360ViewDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "PUT",
+        "path": "api/product-360-views/update/{id:int}",
+        "action": "Update",
+        "args": "int id, [FromBody] Product360ViewDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/product-360-views/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "none"
+      }
+    ]
+  },
+  {
+    "file": "ProductBundleItemsController.cs",
+    "controller": "ProductBundleItemsController",
+    "baseRoute": "api/product-bundle-items",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/product-bundle-items/create",
+        "action": "Create",
+        "args": "[FromBody] ProductBundleItemDto dto",
+        "auth": "anonymous"
+      },
+      {
+        "method": "PUT",
+        "path": "api/product-bundle-items/update/{id:int}",
+        "action": "Update",
+        "args": "int id, [FromBody] ProductBundleItemDto dto",
+        "auth": "anonymous"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/product-bundle-items/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-bundle-items/get-by-bundle/{bundleId:int}",
+        "action": "GetByBundleId",
+        "args": "int bundleId",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "ProductBundlesController.cs",
+    "controller": "ProductBundlesController",
+    "baseRoute": "api/product-bundles",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/product-bundles/create",
+        "action": "Create",
+        "args": "[FromBody] ProductBundleDto dto",
+        "auth": "anonymous"
+      },
+      {
+        "method": "PUT",
+        "path": "api/product-bundles/update",
+        "action": "Update",
+        "args": "[FromBody] ProductBundleDto dto",
+        "auth": "anonymous"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/product-bundles/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-bundles/get-all",
+        "action": "GetAll",
+        "args": "",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-bundles/get-by-id/{id:int}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "ProductController.cs",
+    "controller": "ProductController",
+    "baseRoute": "api/Product",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/Product/{name}",
+        "action": "GetByName",
+        "args": "string name",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Product/GetAll",
+        "action": "GetAll",
+        "args": "[FromQuery] int page = DefaultPageNumber, [FromQuery] int pageSize = DefaultPageSize",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Product/{id:int}/details",
+        "action": "GetDetails",
+        "args": "int id",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Product/{id:int}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Product/category/{categoryId:int}",
+        "action": "GetByCategory",
+        "args": "int categoryId, [FromQuery] int page = DefaultPageNumber, [FromQuery] int pageSize = DefaultPageSize",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Product/brand/{brandId:int}",
+        "action": "GetByBrand",
+        "args": "int brandId, [FromQuery] int page = DefaultPageNumber, [FromQuery] int pageSize = DefaultPageSize",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Product/featured",
+        "action": "GetFeatured",
+        "args": "[FromQuery] int page = DefaultPageNumber, [FromQuery] int pageSize = DefaultPageSize",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Product/search",
+        "action": "Search",
+        "args": "[FromQuery] string keyword, [FromQuery] int page = DefaultPageNumber, [FromQuery] int pageSize = DefaultPageSize",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/Product/Create",
+        "action": "Create",
+        "args": "[FromBody] ProductDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "PUT",
+        "path": "api/Product/{id:int}",
+        "action": "Update",
+        "args": "int id, [FromBody] ProductDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/Product/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "auth"
+      },
+      {
+        "method": "PATCH",
+        "path": "api/Product/{id:int}/toggle-active",
+        "action": "ToggleActive",
+        "args": "int id",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/Product/{productId:int}/total-stock",
+        "action": "GetTotalStock",
+        "args": "int productId",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Product/{productId:int}/in-stock",
+        "action": "IsInStock",
+        "args": "int productId, [FromQuery] int requiredQty = 1",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Product/best-sellers",
+        "action": "GetBestSellingProducts",
+        "args": "[FromQuery] int pageNumber = DefaultPageNumber, [FromQuery] int pageSize = 10, [FromQuery] bool includeAll = false",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Product/featured-paged",
+        "action": "GetFeaturedProductsPaged",
+        "args": "[FromQuery] int pageNumber = DefaultPageNumber, [FromQuery] int pageSize = 5",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Product/discounted-paged",
+        "action": "GetDiscountedProductsPaged",
+        "args": "[FromQuery] int pageNumber = DefaultPageNumber, [FromQuery] int pageSize = 5",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/Product/filtered",
+        "action": "GetFilteredProducts",
+        "args": "[FromQuery] int? categoryId, [FromQuery] int? brandId, [FromQuery] string? vehicleIds, [FromQuery] int? makeId, [FromQuery] int? modelId, [FromQuery] int? trimId, [FromQuery] decimal? minPrice, [FromQuery] decimal? maxPrice, [FromQuery] bool? inStock, [FromQuery] bool? hasDiscount, [FromQuery] string? sortBy, [FromQuery] int? page, [FromQuery] int? pageSize",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "ProductDiscountsController.cs",
+    "controller": "ProductDiscountsController",
+    "baseRoute": "api/admin/product-discounts",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/admin/product-discounts/create",
+        "action": "Create",
+        "args": "[FromBody] ProductDiscountDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "PUT",
+        "path": "api/admin/product-discounts/update",
+        "action": "Update",
+        "args": "[FromBody] ProductDiscountDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/admin/product-discounts/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/product-discounts/get-all",
+        "action": "GetAll",
+        "args": "",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/product-discounts/get-by-id/{id:int}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/product-discounts/get-by-product/{productId:int}",
+        "action": "GetByProductId",
+        "args": "int productId",
+        "auth": "none"
+      }
+    ]
+  },
+  {
+    "file": "ProductImageController.cs",
+    "controller": "ProductImageController",
+    "baseRoute": "api/product-images",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/product-images/get-all",
+        "action": "GetAll",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-images/get-by-id/{id:int}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-images/get-by-product/{productId:int}",
+        "action": "GetByProductId",
+        "args": "int productId",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/product-images/create",
+        "action": "Create",
+        "args": "[FromBody] ProductImageDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "PUT",
+        "path": "api/product-images/update/{id:int}",
+        "action": "Update",
+        "args": "int id, [FromBody] ProductImageDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/product-images/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "ProductInventoryController.cs",
+    "controller": "ProductInventoryController",
+    "baseRoute": "api/ProductInventory",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/ProductInventory/getByProduct/{productId:int}",
+        "action": "GetByProduct",
+        "args": "int productId",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/ProductInventory/warehouse/{warehouseId:int}",
+        "action": "GetByWarehouse",
+        "args": "int warehouseId",
+        "auth": "auth"
+      },
+      {
+        "method": "PUT",
+        "path": "api/ProductInventory/setInventory",
+        "action": "SetInventory",
+        "args": "[FromBody] UpdateInventoryDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "PATCH",
+        "path": "api/ProductInventory/adjustInventory/{warehouseId:int}/{productId:int}",
+        "action": "AdjustInventory",
+        "args": "int warehouseId, int productId, [FromQuery] int delta",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/ProductInventory/transfer",
+        "action": "Transfer",
+        "args": "[FromBody] TransferInventoryDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/ProductInventory/low-stock",
+        "action": "GetLowStock",
+        "args": "[FromQuery] int threshold = 5",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/ProductInventory/reserve",
+        "action": "Reserve",
+        "args": "[FromQuery] int productId, [FromQuery] int quantity",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/ProductInventory/release",
+        "action": "Release",
+        "args": "[FromQuery] int productId, [FromQuery] int quantity",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "ProductMediaController.cs",
+    "controller": "ProductMediaController",
+    "baseRoute": "api/product-medias",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/product-medias/get-all",
+        "action": "GetAll",
+        "args": "",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-medias/get-by-id/{id:int}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-medias/get-by-product/{productId:int}",
+        "action": "GetByProductId",
+        "args": "int productId",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-medias/get-by-sku/{skuId:int}",
+        "action": "GetBySkuId",
+        "args": "int skuId",
+        "auth": "none"
+      },
+      {
+        "method": "POST",
+        "path": "api/product-medias/create",
+        "action": "Create",
+        "args": "[FromBody] AddProductMediaDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "PUT",
+        "path": "api/product-medias/update/{id:int}",
+        "action": "Update",
+        "args": "int id, [FromBody] ProductMediaDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/product-medias/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "none"
+      },
+      {
+        "method": "POST",
+        "path": "api/product-medias/upload",
+        "action": "Upload",
+        "args": "[FromForm] IFormFile file, [FromForm] UploadMediaRequestDto request",
+        "auth": "none"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/product-medias/delete-by-url",
+        "action": "DeleteByUrl",
+        "args": "[FromBody] DeleteByUrlDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "POST",
+        "path": "api/product-medias/bulk-create",
+        "action": "BulkCreate",
+        "args": "[FromBody] BulkCreateMediaDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/product-medias/bulk-delete",
+        "action": "BulkDelete",
+        "args": "[FromBody] List<int> ids",
+        "auth": "none"
+      },
+      {
+        "method": "PUT",
+        "path": "api/product-medias/reorder",
+        "action": "Reorder",
+        "args": "[FromBody] ReorderMediaDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "PUT",
+        "path": "api/product-medias/set-primary",
+        "action": "SetPrimary",
+        "args": "[FromBody] SetPrimaryMediaDto dto",
+        "auth": "none"
+      }
+    ]
+  },
+  {
+    "file": "ProductPriceHistoryController.cs",
+    "controller": "ProductPriceHistoryController",
+    "baseRoute": "api/admin/product-price-histories",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/admin/product-price-histories/get-all",
+        "action": "GetAll",
+        "args": "",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/product-price-histories/get-by-id/{id:int}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/product-price-histories/get-by-product/{productId:int}",
+        "action": "GetByProductId",
+        "args": "int productId",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/admin/product-price-histories/create",
+        "action": "Create",
+        "args": "[FromBody] ProductPriceHistoryDto dto",
+        "auth": "anonymous"
+      },
+      {
+        "method": "PUT",
+        "path": "api/admin/product-price-histories/update/{id:int}",
+        "action": "Update",
+        "args": "int id, [FromBody] ProductPriceHistoryDto dto",
+        "auth": "anonymous"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/admin/product-price-histories/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "ProductPricingController.cs",
+    "controller": "ProductPricingController",
+    "baseRoute": "api/ProductPricing",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/ProductPricing/{productId:int}/effective-price",
+        "action": "GetEffectivePrice",
+        "args": "int productId",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/ProductPricing/discounts",
+        "action": "CreateDiscount",
+        "args": "[FromBody] ProductDiscountDto dto",
+        "auth": "anonymous"
+      },
+      {
+        "method": "PATCH",
+        "path": "api/ProductPricing/discounts/{discountId:int}/deactivate",
+        "action": "DeactivateDiscount",
+        "args": "int discountId",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/ProductPricing/discounts/active",
+        "action": "GetActiveDiscounts",
+        "args": "",
+        "auth": "anonymous"
+      },
+      {
+        "method": "PATCH",
+        "path": "api/ProductPricing/{productId:int}/base-price",
+        "action": "UpdateBasePrice",
+        "args": "int productId, [FromQuery] decimal newPrice, [FromQuery] int? modifiedById = null",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/ProductPricing/{productId:int}/price-history",
+        "action": "GetPriceHistory",
+        "args": "int productId",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "ProductQuestionController.cs",
+    "controller": "ProductQuestionController",
+    "baseRoute": "api/ProductQuestion",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/ProductQuestion/product/{productId:int}",
+        "action": "GetProductQuestions",
+        "args": "int productId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/ProductQuestion/create",
+        "action": "CreateQuestion",
+        "args": "[FromBody] CreateQuestionRequestDto model",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/ProductQuestion/answer/{questionId:int}",
+        "action": "CreateAnswer",
+        "args": "int questionId, [FromBody] CreateAnswerRequestDto model",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/ProductQuestion/answer/{answerId:int}/vote",
+        "action": "VoteAnswer",
+        "args": "int answerId, [FromQuery] string voteType = \"up\"",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "ProductRelatedController.cs",
+    "controller": "ProductRelatedController",
+    "baseRoute": "api/ProductRelated",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/ProductRelated/product/{productId:int}",
+        "action": "GetRelatedProducts",
+        "args": "int productId",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "ProductReviewController.cs",
+    "controller": "ProductReviewController",
+    "baseRoute": "api/ProductReview",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/ProductReview/product/{productId:int}",
+        "action": "GetProductReviews",
+        "args": "int productId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/ProductReview/create",
+        "action": "CreateReview",
+        "args": "[FromBody] CreateReviewRequestDto model",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/ProductReview/user/{userId:int}",
+        "action": "GetUserReviews",
+        "args": "int userId, [FromQuery] int page = 1, [FromQuery] int pageSize = 10",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/ProductReview/user/me",
+        "action": "GetMyReviews",
+        "args": "[FromQuery] int page = 1, [FromQuery] int pageSize = 10",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/ProductReview/user/me/stats",
+        "action": "GetMyReviewStats",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/ProductReview/{id:int}/helpful",
+        "action": "MarkHelpful",
+        "args": "int id",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "ProductSEOController.cs",
+    "controller": "ProductSEOController",
+    "baseRoute": "api/product-seo",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/product-seo/create",
+        "action": "Create",
+        "args": "[FromBody] ProductSEODto dto",
+        "auth": "none"
+      },
+      {
+        "method": "PUT",
+        "path": "api/product-seo/update",
+        "action": "Update",
+        "args": "[FromBody] ProductSEODto dto",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-seo/get-by-product/{productId:int}",
+        "action": "GetByProductId",
+        "args": "int productId",
+        "auth": "none"
+      }
+    ]
+  },
+  {
+    "file": "ProductSKUAttributesController.cs",
+    "controller": "ProductSKUAttributesController",
+    "baseRoute": "api/product-sku-attributes",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/product-sku-attributes/create",
+        "action": "Create",
+        "args": "[FromBody] ProductSKUAttributeDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "PUT",
+        "path": "api/product-sku-attributes/update/{id:int}",
+        "action": "Update",
+        "args": "int id, [FromBody] ProductSKUAttributeDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/product-sku-attributes/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-sku-attributes/get-by-sku/{skuId:int}",
+        "action": "GetBySkuId",
+        "args": "int skuId",
+        "auth": "none"
+      }
+    ]
+  },
+  {
+    "file": "ProductSimilaritiesController.cs",
+    "controller": "ProductSimilaritiesController",
+    "baseRoute": "api/product-similarities",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/product-similarities/create",
+        "action": "Create",
+        "args": "[FromBody] ProductSimilarityDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/product-similarities/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-similarities/get-by-product/{productId:int}",
+        "action": "GetRelatedProducts",
+        "args": "int productId",
+        "auth": "none"
+      }
+    ]
+  },
+  {
+    "file": "ProductSkuController.cs",
+    "controller": "ProductSkuController",
+    "baseRoute": "api/admin/product-skus",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/admin/product-skus/get-all",
+        "action": "GetAll",
+        "args": "",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/product-skus/get-by-id/{id:int}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/product-skus/get-by-product/{productId:int}",
+        "action": "GetByProductId",
+        "args": "int productId",
+        "auth": "none"
+      },
+      {
+        "method": "POST",
+        "path": "api/admin/product-skus/create",
+        "action": "Create",
+        "args": "[FromBody] ProductSkuDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "PUT",
+        "path": "api/admin/product-skus/update/{id:int}",
+        "action": "Update",
+        "args": "int id, [FromBody] ProductSkuDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/admin/product-skus/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "none"
+      }
+    ]
+  },
+  {
+    "file": "ProductTagsController.cs",
+    "controller": "ProductTagsController",
+    "baseRoute": "api/product-tags",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/product-tags/create",
+        "action": "Create",
+        "args": "[FromBody] ProductTagDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/product-tags/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-tags/get-by-product/{productId:int}",
+        "action": "GetByProductId",
+        "args": "int productId",
+        "auth": "none"
+      }
+    ]
+  },
+  {
+    "file": "ProductVideoController.cs",
+    "controller": "ProductVideoController",
+    "baseRoute": "api/product-videos",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/product-videos/get-all",
+        "action": "GetAll",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-videos/get-by-id/{id:int}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/product-videos/get-by-product/{productId:int}",
+        "action": "GetByProductId",
+        "args": "int productId",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/product-videos/create",
+        "action": "Create",
+        "args": "[FromBody] ProductVideoDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "PUT",
+        "path": "api/product-videos/update/{id:int}",
+        "action": "Update",
+        "args": "int id, [FromBody] ProductVideoDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/product-videos/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "ProductWarrantiesController.cs",
+    "controller": "ProductWarrantiesController",
+    "baseRoute": "api/admin/product-warranties",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/admin/product-warranties/create",
+        "action": "Create",
+        "args": "[FromBody] ProductWarrantyDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "PUT",
+        "path": "api/admin/product-warranties/update",
+        "action": "Update",
+        "args": "[FromBody] ProductWarrantyDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/admin/product-warranties/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/product-warranties/get-all",
+        "action": "GetAll",
+        "args": "",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/product-warranties/get-by-id/{id:int}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/product-warranties/get-by-product/{productId:int}",
+        "action": "GetByProductId",
+        "args": "int productId",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/admin/product-warranties/get-by-sku/{skuId:int}",
+        "action": "GetBySkuId",
+        "args": "int skuId",
+        "auth": "none"
+      }
+    ]
+  },
+  {
+    "file": "ProfileController.cs",
+    "controller": "ProfileController",
+    "baseRoute": "api/Profile",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/Profile/me",
+        "action": "GetMyProfile",
+        "args": "",
+        "auth": "anonymous"
+      },
+      {
+        "method": "PUT",
+        "path": "api/Profile/update",
+        "action": "UpdateProfile",
+        "args": "[FromBody] UpdateProfileDto model",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/Profile/change-password",
+        "action": "ChangePassword",
+        "args": "[FromBody] ChangePasswordDto model",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/Profile/upload-avatar",
+        "action": "UploadAvatar",
+        "args": "IFormFile file",
+        "auth": "anonymous"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/Profile/delete-avatar",
+        "action": "DeleteAvatar",
+        "args": "",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "RoleController.cs",
+    "controller": "RolesController",
+    "baseRoute": "api/Roles",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/Roles/GetAll",
+        "action": "GetAll",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/Roles/GetById/{id}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/Roles/Create",
+        "action": "Create",
+        "args": "[FromBody] Role model",
+        "auth": "auth"
+      },
+      {
+        "method": "PUT",
+        "path": "api/Roles/Update/{id}",
+        "action": "Update",
+        "args": "int id, [FromBody] Role model",
+        "auth": "auth"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/Roles/Delete/{id}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "SearchController.cs",
+    "controller": "SearchController",
+    "baseRoute": "api/Search",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/Search/suggestions",
+        "action": "Suggestions",
+        "args": "[FromQuery] string q, [FromQuery] int limit = 5",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "ShippingController.cs",
+    "controller": "ShippingController",
+    "baseRoute": "api/Shipping",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/Shipping/quote",
+        "action": "GetQuote",
+        "args": "[FromBody] ShippingQuoteRequestDto request",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "ShippingMethodController.cs",
+    "controller": "ShippingMethodController",
+    "baseRoute": "api/ShippingMethod",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/ShippingMethod/GetAll",
+        "action": "GetAll",
+        "args": "",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "TagsController.cs",
+    "controller": "TagsController",
+    "baseRoute": "api/tags",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/tags/create",
+        "action": "Create",
+        "args": "[FromBody] TagDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "PUT",
+        "path": "api/tags/update/{id:int}",
+        "action": "Update",
+        "args": "int id, [FromBody] TagDto dto",
+        "auth": "none"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/tags/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/tags/get-all",
+        "action": "GetAll",
+        "args": "",
+        "auth": "none"
+      },
+      {
+        "method": "GET",
+        "path": "api/tags/get-by-id/{id:int}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "none"
+      }
+    ]
+  },
+  {
+    "file": "UserCommentsController.cs",
+    "controller": "UserCommentsController",
+    "baseRoute": "api/UserComments",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/UserComments/my-comments",
+        "action": "GetMyComments",
+        "args": "[FromQuery] int page = 1, [FromQuery] int pageSize = 10",
+        "auth": "auth"
+      },
+      {
+        "method": "PUT",
+        "path": "api/UserComments/my-comments/{id:int}",
+        "action": "UpdateComment",
+        "args": "int id, [FromBody] UpdateCommentDto model",
+        "auth": "auth"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/UserComments/my-comments/{id:int}",
+        "action": "DeleteComment",
+        "args": "int id",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "UserOrdersController.cs",
+    "controller": "UserOrdersController",
+    "baseRoute": "api/UserOrders",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/UserOrders/place-from-cart",
+        "action": "PlaceOrderFromCart",
+        "args": "[FromBody] PlaceOrderFromCartRequestDto request",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/UserOrders/my-orders",
+        "action": "GetMyOrders",
+        "args": "[FromQuery] int page = 1, [FromQuery] int pageSize = 10",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/UserOrders/my-orders/{id:int}",
+        "action": "GetMyOrderDetail",
+        "args": "int id",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/UserOrders/my-orders/{id:int}/tracking",
+        "action": "GetOrderTracking",
+        "args": "int id",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/UserOrders/my-orders/{id:int}/cancel",
+        "action": "CancelOrder",
+        "args": "int id, [FromBody] CancelOrderRequestDto request",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "UsersController.cs",
+    "controller": "UsersController",
+    "baseRoute": "api/Users",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/Users/GetAll",
+        "action": "GetAll",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/Users/GetById/{id}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/Users/Create",
+        "action": "Create",
+        "args": "[FromBody] UserCreateDto model",
+        "auth": "anonymous"
+      },
+      {
+        "method": "PUT",
+        "path": "api/Users/Update/{id}",
+        "action": "Update",
+        "args": "int id, [FromBody] UserListDto userDto",
+        "auth": "anonymous"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/Users/Delete/{id}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "VehiclesController.cs",
+    "controller": "VehiclesController",
+    "baseRoute": "api/vehicles",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/vehicles/makes",
+        "action": "GetAllMakes",
+        "args": "",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/vehicles/makes/{id:int}",
+        "action": "GetMakeById",
+        "args": "[FromRoute] int id",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/vehicles/models",
+        "action": "GetAllModels",
+        "args": "",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/vehicles/models/{id:int}",
+        "action": "GetModelById",
+        "args": "[FromRoute] int id",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/vehicles/generations",
+        "action": "GetAllGenerations",
+        "args": "",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/vehicles/trims",
+        "action": "GetAllTrims",
+        "args": "",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/vehicles/engines",
+        "action": "GetAllEngines",
+        "args": "",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/vehicles/makes/{makeId:int}/models",
+        "action": "GetModelsByMakeId",
+        "args": "[FromRoute] int makeId",
+        "auth": "anonymous"
+      },
+      {
+        "method": "GET",
+        "path": "api/vehicles/trims/details",
+        "action": "GetAllTrimsWithDetails",
+        "args": "",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "WarehouseController.cs",
+    "controller": "WarehouseController",
+    "baseRoute": "api/warehouses",
+    "controllerAuth": false,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/warehouses/get-all",
+        "action": "GetAll",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/warehouses/get-active",
+        "action": "GetActive",
+        "args": "",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/warehouses/get-by-id/{id:int}",
+        "action": "GetById",
+        "args": "int id",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/warehouses/get-by-city/{city}",
+        "action": "GetByCity",
+        "args": "string city",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/warehouses/create",
+        "action": "Create",
+        "args": "[FromBody] CreateWarehouseDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "PUT",
+        "path": "api/warehouses/update/{id:int}",
+        "action": "Update",
+        "args": "int id, [FromBody] UpdateWarehouseDto dto",
+        "auth": "auth"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/warehouses/delete/{id:int}",
+        "action": "Delete",
+        "args": "int id",
+        "auth": "auth"
+      }
+    ]
+  },
+  {
+    "file": "WishlistController.cs",
+    "controller": "WishlistController",
+    "baseRoute": "api/Wishlist",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "GET",
+        "path": "api/Wishlist",
+        "action": "GetMyWishlist",
+        "args": "",
+        "auth": "anonymous"
+      },
+      {
+        "method": "POST",
+        "path": "api/Wishlist/add",
+        "action": "AddToWishlist",
+        "args": "[FromBody] AddToWishlistDto model",
+        "auth": "anonymous"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/Wishlist/remove/{productId:int}",
+        "action": "RemoveFromWishlist",
+        "args": "int productId",
+        "auth": "anonymous"
+      },
+      {
+        "method": "DELETE",
+        "path": "api/Wishlist/clear",
+        "action": "ClearWishlist",
+        "args": "",
+        "auth": "anonymous"
+      }
+    ]
+  },
+  {
+    "file": "PermissionsController.cs",
+    "controller": "PermissionsController",
+    "baseRoute": "api/Permissions",
+    "controllerAuth": true,
+    "endpoints": [
+      {
+        "method": "POST",
+        "path": "api/Permissions/AssignRolesToUser",
+        "action": "AssignRolesToUser",
+        "args": "[FromBody] AssignRoleDto model",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/Permissions/GetProjectStructure/{roleId:int}",
+        "action": "GetProjectStructure",
+        "args": "int roleId",
+        "auth": "auth"
+      },
+      {
+        "method": "GET",
+        "path": "api/Permissions/GetRolePermissions/{roleId:int}",
+        "action": "GetRolePermissions",
+        "args": "int roleId",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/Permissions/UpdateRolePermissions",
+        "action": "UpdateRolePermissions",
+        "args": "[FromBody] CustomPermissionUpdateDto model",
+        "auth": "auth"
+      },
+      {
+        "method": "POST",
+        "path": "api/Permissions/RescanSystemActions",
+        "action": "RescanSystemActions",
+        "args": "",
+        "auth": "auth"
+      }
+    ]
+  }
+]

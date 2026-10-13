@@ -1,0 +1,88 @@
+// متغیرهای رنگ
+$primary-color: #111827;
+$secondary-color: #6366f1;
+$success-color: #4caf50;
+$warning-color: #ff9800;
+$error-color: #f44336;
+$info-color: #2196f3;
+
+// رنگ‌های متن
+$text-primary: #1a1a1a;
+$text-secondary: #666666;
+$text-disabled: #999999;
+
+// رنگ‌های پس‌زمینه
+$background-default: #f8fafc;
+$background-paper: #ffffff;
+$background-dark: #1a1a1a;
+
+// سایه‌ها
+$shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12);
+$shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 20px 45px rgba(15, 23, 42, 0.10);
+$shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.2);
+
+// انیمیشن‌ها
+$transition-fast: 150ms ease;
+$transition-normal: 250ms ease;
+$transition-slow: 350ms ease;
+
+// فونت‌ها
+$font-family-primary: 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-family-secondary: 'Vazirmatn', Arial, sans-serif;
+$font-family-monospace: 'JetBrains Mono', 'Courier New', monospace;
+
+// فونت‌سایزها
+$font-size-xs: 0.75rem;   // 12px
+$font-size-sm: 0.875rem;  // 14px
+$font-size-base: 1rem;    // 16px
+$font-size-lg: 1.125rem;  // 18px
+$font-size-xl: 1.25rem;   // 20px
+$font-size-2xl: 1.5rem;   // 24px
+$font-size-3xl: 1.875rem; // 30px
+$font-size-4xl: 2.25rem;  // 36px
+
+$font-family-primary: 'yekan', 'Vazirmatn', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+$font-family-secondary: 'yekan', 'Vazirmatn', Arial, sans-serif;
+$font-family-monospace: 'JetBrains Mono', 'Courier New', monospace;
+
+// فاصله‌ها
+$spacing-xs: 0.25rem;  // 4px
+$spacing-sm: 0.5rem;   // 8px
+$spacing-md: 1rem;     // 16px
+$spacing-lg: 1.5rem;   // 24px
+$spacing-xl: 2rem;     // 32px
+$spacing-2xl: 3rem;    // 48px
+$spacing-3xl: 4rem;    // 64px
+
+// شعاع گوشه‌ها
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+$border-radius-xl: 16px;
+$border-radius-full: 9999px;
+
+// breakpoints برای ریسپانسیو
+$breakpoints: (
+  'xs': 0,
+  'sm': 576px,
+  'md': 768px,
+  'lg': 992px,
+  'xl': 1200px,
+  'xxl': 1400px
+) !default;
+
+// جهت‌گیری (RTL برای فارسی)
+$direction: rtl;
+$text-align: right;
+$float-left: right;
+$float-right: left;
+
+
+// در انتهای فایل variables
+$font-family-base: $font-family-primary;
+$line-height-base: 1.5;
+$dark-color: $text-primary;
+$light-color: $background-default;
+$color-white: $background-default;
+$color-border : gray;

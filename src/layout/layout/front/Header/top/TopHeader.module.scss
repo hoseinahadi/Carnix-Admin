@@ -1,0 +1,25 @@
+// TopHeader.module.scss
+.topHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 5rem;
+  background-color: #1e3a8a;
+}
+
+.logoSection {
+  width: 60%;
+}
+
+.searchSection {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.actionsSection {
+  width: 60%;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

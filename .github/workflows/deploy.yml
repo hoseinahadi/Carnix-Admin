@@ -1,0 +1,20 @@
+name: Deploy CarnixAdmin
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+    steps:
+      - name: Deploy and Restart on Server
+        shell: powershell
+        run: |
+          cd C:\Carnix\Apps\CarnixAdmin
+          git fetch --all
+          git reset --hard origin/main
+          npm install
+          npm run build
+          pm2 reload ecosystem.production.config.cjs --env production
