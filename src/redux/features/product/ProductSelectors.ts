@@ -9,3 +9,4 @@ export const selectProductsError = (state: RootState) => state.products.error;
 export const selectSelectedProduct = (state: RootState) => state.products.selectedProduct;
 // سلکتور مخصوص مدال جزئیات
 export const selectProductDetails = (state: RootState) => state.products.productDetails;
+// Test

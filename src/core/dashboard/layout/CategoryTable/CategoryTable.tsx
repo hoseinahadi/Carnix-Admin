@@ -86,3 +86,4 @@ const CategoryTable: React.FC<CategoryTableProps> = ({ categories, onEdit, onDel
 };
 
 export default CategoryTable;
+// Test

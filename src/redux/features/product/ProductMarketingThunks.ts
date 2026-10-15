@@ -60,3 +60,4 @@ export const deleteWarranty = createAsyncThunk('productMarketing/deleteWarranty'
     return id;
   } catch (error: any) { return rejectWithValue(error.response?.data?.message || 'خطا در حذف گارانتی'); }
 });
+// Test

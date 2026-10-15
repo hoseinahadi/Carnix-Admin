@@ -89,3 +89,4 @@ export const logoutThunk = createAsyncThunk('auth/logout', async () => {
     localStorage.removeItem('RoleName')
   }
 })
+// Test

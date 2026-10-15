@@ -152,3 +152,4 @@
 .category-detail-section dl>div{display:flex;justify-content:space-between;gap:12px;padding-bottom:7px;border-bottom:1px solid #eff1f5}
 .category-detail-section dl dd{margin:0;color:#3b4b63;font-size:11px;text-align:left}
 @media(max-width:600px){.category-products-panel{padding:12px}.category-product-filters{flex-direction:column}.category-product-footer{align-items:stretch;flex-direction:column}.category-detail-view{padding:12px}.category-detail-stats{grid-template-columns:1fr 1fr}}
+/* Test */

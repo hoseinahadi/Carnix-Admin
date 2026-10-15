@@ -50,3 +50,4 @@ export const CategoryApi = {
     return await axiosInstance.delete(`${BASE_URL}/bulk`, { data: ids });
   }
 };
+// Test

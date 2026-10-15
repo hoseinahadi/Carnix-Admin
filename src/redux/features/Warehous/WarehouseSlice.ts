@@ -124,3 +124,4 @@ const warehouseSlice = createSlice({
 
 export const { setSelectedWarehouse, clearError } = warehouseSlice.actions;
 export default warehouseSlice.reducer;
+// Test

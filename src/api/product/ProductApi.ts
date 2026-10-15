@@ -46,3 +46,4 @@ export const ProductApi = {
   toggleStatus: async (id: number | string) =>
     await axiosInstance.patch<OperationResult<Product>>(`/Product/${id}/toggle-active`),
 };
+// Test

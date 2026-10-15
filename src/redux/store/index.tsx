@@ -71,3 +71,4 @@ export type AppDispatch = typeof store.dispatch;
 
 // ایجاد persistor
 export const persistor = persistStore(store);
+// Test

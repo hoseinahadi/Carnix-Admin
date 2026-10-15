@@ -24,3 +24,4 @@ export const ProductSkuApi = {
   getAttributesBySkuId: async (skuId: number | string) =>
     await axiosInstance.get<ProductSKUAttributeDto[]>(`/ProductSKUAttributes/GetBySkuId/${skuId}`),
 };
+// Test

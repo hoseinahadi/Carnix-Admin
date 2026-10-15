@@ -47,3 +47,4 @@ export interface WarehouseListItemDto {
   isActive: boolean;
   priority: number;
 }
+// Test

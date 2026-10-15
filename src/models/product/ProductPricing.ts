@@ -8,3 +8,4 @@ export interface ProductPriceHistoryDto {
   newDiscountedPrice?: number | null;
   reason?: string | null;
 }
+// Test

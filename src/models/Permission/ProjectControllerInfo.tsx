@@ -8,3 +8,4 @@ export interface ProjectControllerInfo {
   baseRoute: string;
   actions: ProjectActionInfo[];
 }
+// Test

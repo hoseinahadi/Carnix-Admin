@@ -84,3 +84,4 @@ function Trend({ data }: { data: Json }) {
   const path = values.map((value, index) => `${index ? 'L' : 'M'} ${(index / Math.max(values.length - 1, 1)) * width} ${height - (value / max) * (height - 30) - 15}`).join(' ');
   return <div className="trend"><svg viewBox={`0 0 ${width} ${height}`} preserveAspectRatio="none" role="img" aria-label="نمودار روند ۳۰ روزه"><path d={path} /></svg><div className="trend-labels"><span>۳۰ روز قبل</span><span>امروز</span></div></div>;
 }
+// Test

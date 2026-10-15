@@ -35,3 +35,4 @@ export const PermissionApi = {
     return await axiosInstance.post('/Permissions/UpdateRolePermissions', payload);
   }
 };
+// Test

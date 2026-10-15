@@ -50,3 +50,4 @@ export const ProductMediaApi = {
   deleteVideo: async (id: number | string) =>
     await axiosInstance.delete<OperationResult<boolean>>(`/product-videos/Delete/${id}`),
 };
+// Test

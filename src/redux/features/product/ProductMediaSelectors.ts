@@ -8,3 +8,4 @@ export const selectProduct360Views = (state: RootState) => state.productMedia.vi
 export const selectMediaLoading = (state: RootState) => state.productMedia.loading;
 export const selectMediaActionLoading = (state: RootState) => state.productMedia.actionLoading;
 export const selectMediaError = (state: RootState) => state.productMedia.error;
+// Test

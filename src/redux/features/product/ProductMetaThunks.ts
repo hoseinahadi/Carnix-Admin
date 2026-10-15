@@ -69,3 +69,4 @@ export const removeSimilarProduct = createAsyncThunk('productMeta/removeSimilari
     return id;
   } catch (error: any) { return rejectWithValue(error.response?.data?.message || 'خطا در حذف محصول مشابه'); }
 });
+// Test

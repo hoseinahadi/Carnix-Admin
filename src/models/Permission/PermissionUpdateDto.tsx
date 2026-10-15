@@ -5,3 +5,4 @@ export interface PermissionUpdateDto {
   RoleId: number;
   Permissions: PermissionItem[];
 }
+// Test

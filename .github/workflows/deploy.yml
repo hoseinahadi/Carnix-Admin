@@ -1,20 +1,104 @@
+# Test
 name: Deploy CarnixAdmin
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: carnix-admin-production
+  cancel-in-progress: false
+
+defaults:
+  run:
+    shell: powershell
 
 jobs:
   deploy:
     runs-on: self-hosted
+    timeout-minutes: 30
+    env:
+      DEPLOY_PATH: C:\Carnix\Apps\CarnixAdmin
+      NEXT_TELEMETRY_DISABLED: '1'
     steps:
-      - name: Deploy and Restart on Server
-        shell: powershell
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: npm
+
+      - name: Prepare server environment for build
         run: |
-          cd C:\Carnix\Apps\CarnixAdmin
-          git fetch --all
-          git reset --hard origin/main
-          npm install
-          npm run build
-          pm2 reload ecosystem.production.config.cjs --env production
+          $ErrorActionPreference = 'Stop'
+          if ([IO.Path]::GetFullPath($env:GITHUB_WORKSPACE).TrimEnd('\') -eq $env:DEPLOY_PATH) { throw 'Checkout must differ from deployment directory.' }
+          foreach ($name in @('ecosystem.production.config.cjs', '.env.production')) {
+            if (!(Test-Path "$env:DEPLOY_PATH\$name")) { throw "Missing server configuration: $name" }
+          }
+          foreach ($name in @('.env.production', '.env.local', '.env.production.local')) {
+            if (Test-Path "$env:DEPLOY_PATH\$name") { Copy-Item -LiteralPath "$env:DEPLOY_PATH\$name" -Destination "$env:GITHUB_WORKSPACE\$name" -Force }
+          }
+          Get-Command pm2.cmd -ErrorAction Stop | Out-Null
+          Write-Output "Building commit $env:GITHUB_SHA"
+
+      - name: Install dependencies
+        run: |
+          npm.cmd ci --no-audit --no-fund
+          if ($LASTEXITCODE -ne 0) { throw 'npm ci failed.' }
+
+      - name: Validate types
+        run: |
+          npm.cmd run lint
+          if ($LASTEXITCODE -ne 0) { throw 'Type validation failed.' }
+
+      - name: Build
+        run: |
+          npm.cmd run build
+          if ($LASTEXITCODE -ne 0) { throw 'Build failed; running application was not changed.' }
+          if (!(Test-Path '.next\BUILD_ID')) { throw 'Missing production BUILD_ID.' }
+
+      - name: Deploy and restart admin only
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $target = [IO.Path]::GetFullPath($env:DEPLOY_PATH).TrimEnd('\')
+          if ($target -ne 'C:\Carnix\Apps\CarnixAdmin') { throw 'Unexpected deployment directory.' }
+          $source = $env:GITHUB_WORKSPACE
+          pm2.cmd stop CarnixAdmin
+          if ($LASTEXITCODE -ne 0) { throw 'PM2 stop failed.' }
+          try {
+            # Preserve server environment and PM2 configuration. Do not mirror the root.
+            robocopy $source $target /E /R:2 /W:2 /NFL /NDL /NJH /NJS /XD .git .github .next .next-legacy node_modules public verification /XF .env* ecosystem.production.config.cjs *.log *.tsbuildinfo
+            if ($LASTEXITCODE -ge 8) { throw 'Application copy failed.' }
+            foreach ($directory in @('.next', 'node_modules', 'public')) {
+              robocopy "$source\$directory" "$target\$directory" /MIR /R:2 /W:2 /NFL /NDL /NJH /NJS
+              if ($LASTEXITCODE -ge 8) { throw "Copy failed: $directory" }
+            }
+          } finally {
+            pm2.cmd startOrReload "$target\ecosystem.production.config.cjs" --only CarnixAdmin --env production --update-env
+            if ($LASTEXITCODE -ne 0) { throw 'PM2 restart failed.' }
+          }
+          pm2.cmd save
+          if ($LASTEXITCODE -ne 0) { throw 'PM2 save failed.' }
+          exit 0
+
+      - name: Verify deployed build
+        run: |
+          $ErrorActionPreference = 'Stop'
+          $buildId = (Get-Content "$env:DEPLOY_PATH\.next\BUILD_ID" -Raw).Trim()
+          $healthy = $false
+          for ($attempt = 0; $attempt -lt 12; $attempt++) {
+            try {
+              $response = Invoke-WebRequest 'http://127.0.0.1:3002/login' -UseBasicParsing -TimeoutSec 10
+              if ($response.StatusCode -eq 200 -and $response.Content.Contains($buildId)) { $healthy = $true; break }
+            } catch { Write-Output "Waiting for admin startup ($attempt)." }
+            Start-Sleep -Seconds 5
+          }
+          if (!$healthy) { throw 'Port 3002 is not serving the new build.' }
+          Set-Content -LiteralPath "$env:DEPLOY_PATH\DEPLOYED_COMMIT.txt" -Value $env:GITHUB_SHA -Encoding ascii
+          Write-Output "Verified commit $env:GITHUB_SHA / build $buildId"

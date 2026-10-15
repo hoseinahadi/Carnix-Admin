@@ -9,3 +9,4 @@ export type ResourceConfig = {
   update?:{method:'PUT'|'PATCH'; path:string}; delete?:{method:'DELETE'; path:string};
   idKey:string; searchKey?:string; columns:ColumnDef[]; fields:FieldDef[]; readOnly?:boolean;
 };
+// Test

@@ -19,3 +19,4 @@ export const ProductDiscountApi = {
   delete: async (id: number | string) =>
     await axiosInstance.delete(`/ProductDiscounts/Delete/${id}`),
 };
+// Test

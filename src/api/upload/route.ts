@@ -175,3 +175,4 @@ export const productMediaApi = {
   setPrimary: (productMediaId: number, productId: number): Promise<OperationResult<boolean>> =>
     axiosInstance.put('/api/product-medias/set-primary', { productMediaId, productId }).then(r => r.data),
 };
+// Test

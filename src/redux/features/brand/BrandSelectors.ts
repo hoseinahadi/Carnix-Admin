@@ -6,3 +6,4 @@ export const selectSelectedBrand = (state: RootState) => state.brands.selectedBr
 export const selectBrandsLoading = (state: RootState) => state.brands.loading;
 export const selectBrandsActionLoading = (state: RootState) => state.brands.actionLoading;
 export const selectBrandsError = (state: RootState) => state.brands.error;
+// Test

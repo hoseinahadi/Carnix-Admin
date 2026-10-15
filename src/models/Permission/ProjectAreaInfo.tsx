@@ -9,3 +9,4 @@ export interface ProjectActionInfo {
   isSensitive: boolean;
   requiresAuthentication: boolean;
 }
+// Test

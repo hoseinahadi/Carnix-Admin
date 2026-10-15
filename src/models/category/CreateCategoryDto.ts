@@ -9,3 +9,4 @@ export interface CreateCategoryDto {
   metaDescription: string;
   imageUrl: string;
 }
+// Test

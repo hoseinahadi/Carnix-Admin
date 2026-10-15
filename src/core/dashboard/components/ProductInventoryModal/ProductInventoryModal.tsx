@@ -180,3 +180,4 @@ const ProductInventoryModal: React.FC<ProductInventoryModalProps> = ({
 };
 
 export default ProductInventoryModal;
+// Test

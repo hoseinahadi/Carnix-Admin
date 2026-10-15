@@ -8,3 +8,4 @@ export const frontLayoutClasses = {
   headerBlur: 'front-layout-header-blur',
   content: 'front-layout-content',
 }
+// Test

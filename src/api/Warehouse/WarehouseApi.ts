@@ -38,3 +38,4 @@ export const WarehouseApi = {
   delete: async (id: number) =>
     await axiosInstance.delete<OperationResult<boolean>>(`/warehouses/delete/${id}`),
 };
+// Test

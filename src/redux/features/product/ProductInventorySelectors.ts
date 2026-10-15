@@ -6,3 +6,4 @@ export const selectInventories = (state: RootState) => state.productInventory.in
 export const selectInventoryLoading = (state: RootState) => state.productInventory.loading;
 export const selectInventoryActionLoading = (state: RootState) => state.productInventory.actionLoading;
 export const selectInventoryError = (state: RootState) => state.productInventory.error;
+// Test

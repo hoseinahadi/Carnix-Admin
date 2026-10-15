@@ -10,3 +10,4 @@ export const ProductSeoApi = {
   createOrUpdate: async (data: ProductSEODto) =>
     await axiosInstance.post<ProductSEODto>('/product-seo/Create', data), // فرض بر این است که متدی برای ایجاد یا آپدیت یکجا دارید
 };
+// Test

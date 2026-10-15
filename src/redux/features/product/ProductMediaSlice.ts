@@ -52,3 +52,4 @@ const productMediaSlice = createSlice({
 
 export const { clearMediaError } = productMediaSlice.actions;
 export default productMediaSlice.reducer;
+// Test

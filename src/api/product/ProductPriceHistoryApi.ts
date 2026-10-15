@@ -10,3 +10,4 @@ export const ProductPriceHistoryApi = {
   getBySkuId: async (skuId: number | string) =>
     await axiosInstance.get<ProductPriceHistoryDto[]>(`/ProductPriceHistory/GetBySkuId/${skuId}`),
 };
+// Test

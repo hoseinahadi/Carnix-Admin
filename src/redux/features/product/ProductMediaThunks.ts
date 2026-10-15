@@ -62,3 +62,4 @@ export const getProduct360Views = createAsyncThunk('productMedia/get360Views', a
     return rejectWithValue(response.data.message);
   } catch (error: any) { return rejectWithValue(error.response?.data?.message || 'خطا در دریافت نمای 360'); }
 });
+// Test

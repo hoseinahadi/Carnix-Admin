@@ -124,3 +124,4 @@ const productSlice = createSlice({
 
 export const { setSelectedProduct, clearProductDetails, clearError } = productSlice.actions;
 export default productSlice.reducer;
+// Test

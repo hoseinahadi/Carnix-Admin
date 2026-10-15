@@ -19,3 +19,4 @@ export const ProductWarrantyApi = {
   delete: async (id: number | string) =>
     await axiosInstance.delete(`/ProductWarranty/Delete/${id}`),
 };
+// Test

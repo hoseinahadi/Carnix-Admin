@@ -6,3 +6,4 @@ export interface RolePermission {
   roleId: number;
   isAccess: boolean;
 }
+// Test

@@ -9,3 +9,4 @@ export const getServerMode = async (): Promise<Mode> => {
   const mode = cookieStore.get('mode')?.value
   return (mode as Mode) || 'light'
 }
+// Test

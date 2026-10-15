@@ -25,3 +25,4 @@ export const BrandApi = {
   delete: async (id: number) =>
     await axiosInstance.delete<OperationResult<boolean>>(`/brands/delete/${id}`),
 };
+// Test

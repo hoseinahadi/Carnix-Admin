@@ -5,3 +5,4 @@ export interface RoleCreate {
   roleLevel: number;
   isActive: boolean;
 }
+// Test

@@ -30,3 +30,4 @@ export interface ProductSimilarityDto {
   similarityScore: number;
   metricType: string;
 }
+// Test

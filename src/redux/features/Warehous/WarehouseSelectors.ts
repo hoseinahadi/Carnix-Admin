@@ -7,3 +7,4 @@ export const selectSelectedWarehouse = (state: RootState) => state.warehouses.se
 export const selectWarehousesLoading = (state: RootState) => state.warehouses.loading;
 export const selectWarehousesActionLoading = (state: RootState) => state.warehouses.actionLoading;
 export const selectWarehousesError = (state: RootState) => state.warehouses.error;
+// Test

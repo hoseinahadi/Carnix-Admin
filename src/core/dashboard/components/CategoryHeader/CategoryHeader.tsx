@@ -30,3 +30,4 @@ const CategoryHeader: React.FC<CategoryHeaderProps> = ({ onSearch, onAdd, onRefr
 };
 
 export default CategoryHeader;
+// Test

@@ -41,4 +41,4 @@ export const navGroups = [
  {title:'خودرو',items:[['vehiclesMakes','برند خودرو'],['vehiclesModels','مدل خودرو']]},
  {title:'تنظیمات',items:[['shippingMethods','روش‌های ارسال'],['paymentMethods','روش‌های پرداخت']]},{title:'سیستم',items:[['api-center','مرکز API']]}
  ] as const;
-
+// Test

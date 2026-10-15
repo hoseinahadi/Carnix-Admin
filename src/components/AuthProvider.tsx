@@ -14,3 +14,4 @@ export function AuthProvider({children}:{children:React.ReactNode}){
  return <C.Provider value={{user,loading,login,logout,refresh}}>{children}</C.Provider>
 }
 export const useAuth=()=>{const x=useContext(C);if(!x)throw new Error('AuthProvider missing');return x};
+// Test

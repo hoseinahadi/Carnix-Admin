@@ -38,3 +38,4 @@ export function FeatureValuesWorkspace() {
     {selected && <div className="card feature-selected"><h2>{selected.productName}</h2><p>کد محصول: {selected.productCode} · شناسه: {selected.productId}</p><ProductFeaturesEditor key={selected.productId} productId={selected.productId} /></div>}
   </div>;
 }
+// Test

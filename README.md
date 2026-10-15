@@ -96,3 +96,4 @@ NEXT_PUBLIC_STORE_URL=https://carnix.ir
 Backend همچنان مرجع نهایی Permission، Validation و Business Rule است. پنل محدودیت‌های Authorization را دور نمی‌زند و همان API Token و PermissionFilter بک‌اند را استفاده می‌کند.
 
 مسیر رسمی پنل `/admin` است. پیاده‌سازی قدیمی `/dashboard` برای مهاجرت بعدی در `src/legacy-app` نگهداری می‌شود و در build رسمی وارد نمی‌شود تا دو معماری موازی باعث شکست انتشار نشوند.
+<!-- Test -->

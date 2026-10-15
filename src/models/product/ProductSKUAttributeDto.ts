@@ -8,3 +8,4 @@ export interface ProductSKUAttributeDto {
   displayOrder: number;
   isActive: boolean;
 }
+// Test

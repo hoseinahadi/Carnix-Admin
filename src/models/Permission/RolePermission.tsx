@@ -6,3 +6,4 @@ export interface RolePermission {
   ProjectAreaId: number;
   IsAccess: boolean;
 }
+// Test

@@ -24,3 +24,4 @@ export const ProductInteractionApi = {
   deleteQuestion: async (questionId: number | string) =>
     await axiosInstance.delete(`/ProductQuestion/Delete/${questionId}`),
 };
+// Test

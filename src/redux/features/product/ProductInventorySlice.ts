@@ -188,3 +188,4 @@ const productInventorySlice = createSlice({
 export const { clearInventoryError, resetInventoryState } = productInventorySlice.actions;
 
 export default productInventorySlice.reducer;
+// Test

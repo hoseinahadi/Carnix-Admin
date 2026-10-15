@@ -6,3 +6,4 @@ export interface ProductSkuDto {
   stockQuantity: number;
   isActive: boolean;
 }
+// Test

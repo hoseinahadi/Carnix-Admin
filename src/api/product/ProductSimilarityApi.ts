@@ -13,3 +13,4 @@ export const ProductSimilarityApi = {
   removeSimilarity: async (id: number | string) =>
     await axiosInstance.delete(`/ProductSimilarity/Delete/${id}`),
 };
+// Test

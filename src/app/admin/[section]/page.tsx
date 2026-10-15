@@ -26,3 +26,4 @@ export default function Page() {
   if (!config) return <div className="error-state card"><b>بخش پیدا نشد</b><span>کلید «{section}» در تنظیمات پنل وجود ندارد.</span></div>;
   return <ResourceManager key={section} config={config} />;
 }
+// Test

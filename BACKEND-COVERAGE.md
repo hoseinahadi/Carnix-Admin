@@ -364,3 +364,4 @@
 - `POST /api/Wishlist/add` — `AddToWishlist`
 - `DELETE /api/Wishlist/remove/{productId:int}` — `RemoveFromWishlist`
 - `DELETE /api/Wishlist/clear` — `ClearWishlist`
+<!-- Test -->

@@ -66,3 +66,4 @@ const productMarketingSlice = createSlice({
 
 export const { clearMarketingError } = productMarketingSlice.actions;
 export default productMarketingSlice.reducer;
+// Test

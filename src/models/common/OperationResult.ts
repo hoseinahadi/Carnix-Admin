@@ -26,3 +26,4 @@ export interface OperationResult<T = void> {
      */
     errors?: string[] | Record<string, string[]>;
 }
+// Test

@@ -9,3 +9,4 @@ import classnames from 'classnames'
 export const CustomAvatar = ({ className, ...props }: AvatarProps) => {
   return <Avatar className={classnames('custom-avatar', className)} {...props} />
 }
+// Test

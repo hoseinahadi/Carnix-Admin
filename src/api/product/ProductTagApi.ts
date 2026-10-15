@@ -27,3 +27,4 @@ export const ProductTagApi = {
   removeTagFromProduct: async (id: number | string) =>
     await axiosInstance.delete(`/product-tags/Delete/${id}`),
 };
+// Test

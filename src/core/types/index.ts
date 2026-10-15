@@ -24,3 +24,4 @@ export type CategoryType = {
   createdAt: string
   modifiedAt: string
 }
+// Test

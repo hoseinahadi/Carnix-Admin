@@ -52,3 +52,4 @@ const BrandTable: React.FC<Props> = ({ brands, onEdit, onDelete }) => {
 }
 
 export default BrandTable
+// Test

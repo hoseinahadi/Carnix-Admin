@@ -60,3 +60,4 @@ export const orderStatusApi = {
   delete: async (id: number) =>
     await axiosInstance.delete<OperationResult<boolean>>(`/OrderStatus/${id}`),
 };
+// Test

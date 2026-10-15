@@ -111,3 +111,4 @@ const categorySlice = createSlice({
 
 export const { clearCategoryMessages } = categorySlice.actions;
 export default categorySlice.reducer;
+// Test

@@ -22,3 +22,4 @@ export interface TransferInventoryDto {
   toWarehouseId: number;
   quantity: number;
 }
+// Test

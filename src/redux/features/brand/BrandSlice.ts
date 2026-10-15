@@ -109,3 +109,4 @@ const brandSlice = createSlice({
 
 export const { setSelectedBrand, clearError } = brandSlice.actions;
 export default brandSlice.reducer;
+// Test
