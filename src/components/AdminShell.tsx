@@ -1,13 +1,14 @@
 "use client";
 
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useEffect, useMemo, useRef, useState } from 'react';
 // Test
 import {
   Activity,
   Archive,
   BarChart3,
+  CircleDollarSign,
   Boxes,
   CarFront,
   ChevronDown,
@@ -33,7 +34,7 @@ import {
   X,
   type LucideIcon,
 } from 'lucide-react';
-import { navGroups } from '@/lib/resources';
+import { navGroups, resources } from '@/lib/resources';
 import { useAuth } from './AuthProvider';
 import styles from './AdminShell.module.scss';
 
@@ -58,6 +59,7 @@ const icons: Record<string, LucideIcon> = {
   views360: Activity,
   warranties: ShieldCheck,
   orders: ShoppingCart,
+  tickets: CircleHelp,
   orderStatuses: Activity,
   carts: ShoppingCart,
   productDiscounts: Tag,
@@ -72,17 +74,58 @@ const icons: Record<string, LucideIcon> = {
   vehiclesMakes: CarFront,
   vehiclesModels: CarFront,
   'api-center': Activity,
+  'isaco-sync': CircleDollarSign,
 };
 
 type NavGroup = (typeof navGroups)[number];
 
 export function AdminShell({ children }: { children: React.ReactNode }) {
   const path = usePathname();
+  const router = useRouter();
   const { user, logout } = useAuth();
   const [sidebarExpanded, setSidebarExpanded] = useState(true);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [collapsedGroups, setCollapsedGroups] = useState<Record<string, boolean>>({});
+  const [commandOpen, setCommandOpen] = useState(false);
+  const [commandQuery, setCommandQuery] = useState('');
+  const commandInputRef = useRef<HTMLInputElement>(null);
+
+  const commandItems = useMemo(() => {
+    const primary = navGroups.flatMap(group => group.items.map(([key, label]) => ({ key, label, group: group.title })));
+    const known = new Set<string>(primary.map(item => item.key));
+    const secondary = Object.values(resources)
+      .filter(resource => !known.has(resource.key))
+      .map(resource => ({ key: resource.key, label: resource.title, group: resource.group || 'ابزارهای مرتبط' }));
+    return [...primary, ...secondary];
+  }, []);
+  const commandResults = useMemo(() => {
+    const needle = commandQuery.trim().toLocaleLowerCase('fa');
+    return commandItems.filter(item => !needle || `${item.label} ${item.group} ${item.key}`.toLocaleLowerCase('fa').includes(needle)).slice(0, 12);
+  }, [commandItems, commandQuery]);
+
+  useEffect(() => {
+    const onShortcut = (event: KeyboardEvent) => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault();
+        setCommandOpen(value => !value);
+      }
+      if (event.key === 'Escape') setCommandOpen(false);
+    };
+    window.addEventListener('keydown', onShortcut);
+    return () => window.removeEventListener('keydown', onShortcut);
+  }, []);
+  useEffect(() => {
+    if (!commandOpen) return;
+    setCommandQuery('');
+    window.requestAnimationFrame(() => commandInputRef.current?.focus());
+  }, [commandOpen]);
+
+  const goToSection = (key: string) => {
+    const href = key === 'dashboard' ? '/admin/dashboard' : key === 'api-center' ? '/admin/api-center' : `/admin/${key}`;
+    setCommandOpen(false);
+    router.push(href);
+  };
 
   const groups = useMemo(() => {
     const needle = query.trim().toLocaleLowerCase();
@@ -99,6 +142,8 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
       const item = group.items.find(([key]) => (key === 'dashboard' ? path === '/admin/dashboard' : key === 'api-center' ? path === '/admin/api-center' : path.startsWith(`/admin/${key}`)));
       if (item) return item[1];
     }
+    const section = path.split('/').filter(Boolean)[1];
+    if (section && resources[section]) return resources[section].title;
     return 'داشبورد مدیریتی';
   }, [path]);
 
@@ -160,12 +205,14 @@ export function AdminShell({ children }: { children: React.ReactNode }) {
             <div className={styles.breadcrumb}><span>مدیریت Carnix</span><ChevronLeft size={14} /><strong>{currentLabel}</strong></div>
           </div>
           <div className={styles.topbarEnd}>
+            <button className={styles.commandTrigger} type="button" onClick={() => setCommandOpen(true)} aria-label="جست‌وجوی سریع بخش‌ها" aria-keyshortcuts="Control+K"><Search size={15} /><span>رفتن به بخش…</span><kbd>Ctrl K</kbd></button>
             <Link href={process.env.NEXT_PUBLIC_STORE_URL || 'https://carnix.ir'} target="_blank" rel="noreferrer" className={styles.storeLink}>مشاهده فروشگاه <ChevronLeft size={15} /></Link>
             <div className={styles.topAvatar}>{initials}</div>
           </div>
         </header>
         <div id="admin-main" className={`${styles.content} admin-v3-content`}>{children}</div>
       </main>
+      {commandOpen && <div className={styles.commandLayer} role="presentation" onMouseDown={() => setCommandOpen(false)}><section className={styles.commandPalette} role="dialog" aria-modal="true" aria-labelledby="command-title" onMouseDown={event => event.stopPropagation()}><header><Search size={18} /><input ref={commandInputRef} value={commandQuery} onChange={event => setCommandQuery(event.target.value)} onKeyDown={event => { if (event.key === 'Enter' && commandResults[0]) goToSection(commandResults[0].key); }} placeholder="نام بخش یا عملیات را بنویسید…" aria-label="جست‌وجوی سریع"/><kbd>Esc</kbd></header><div className={styles.commandResults}><span id="command-title">بخش‌های مدیریت</span>{commandResults.map(item => { const Icon = icons[item.key] || Settings2; return <button type="button" key={item.key} onClick={() => goToSection(item.key)}><i><Icon size={17} /></i><span><b>{item.label}</b><small>{item.group}</small></span><ChevronLeft size={15} /></button>; })}{!commandResults.length && <p>بخشی با این عبارت پیدا نشد.</p>}</div></section></div>}
     </div>
   );
 }

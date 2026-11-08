@@ -55,6 +55,20 @@ type ProductEditorTab =
   | "categoryProducts"
   | "bundleItems";
 
+function editorStateSignature(
+  form: AnyRecord,
+  vehicleModelIds: number[],
+  files: FileMap,
+) {
+  return JSON.stringify({
+    form,
+    vehicleModelIds: [...vehicleModelIds].sort((a, b) => a - b),
+    files: Object.entries(files)
+      .filter(([, file]) => Boolean(file))
+      .map(([key, file]) => [key, file?.name, file?.size, file?.lastModified]),
+  });
+}
+
 function ProductEditorNavigation({
   active,
   imageCount,
@@ -1009,7 +1023,50 @@ function CategoryProductsManager({
   );
 }
 
-function BundleItemsManager({ bundleId }: { bundleId: number }) {
+function ProductMultiReferenceField({ value, onChange }: { value: number[]; onChange: (ids: number[]) => void }) {
+  const idsKey = value.filter((id) => Number(id) > 0).map(Number).join(",");
+  const [picked, setPicked] = useState<AnyRecord[]>([]);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<AnyRecord[]>([]);
+  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    const ids = idsKey ? idsKey.split(",").map(Number) : [];
+    let active = true;
+    Promise.all(ids.map(async (id) => {
+      try { return unwrapData(await api(`api/Product/${id}`)); }
+      catch { return { productId: id, productName: `محصول ${id}` }; }
+    })).then((rows) => { if (active) setPicked(rows); });
+    return () => { active = false; };
+  }, [idsKey]);
+  useEffect(() => {
+    const term = query.trim();
+    if (term.length < 2) { setResults([]); return; }
+    let active = true;
+    const timer = window.setTimeout(() => {
+      setLoading(true);
+      api("api/Product/search", { query: { keyword: term, page: 1, pageSize: 15 } })
+        .then((response) => { if (active) setResults(unwrapList(response)); })
+        .catch(() => { if (active) setResults([]); })
+        .finally(() => { if (active) setLoading(false); });
+    }, 250);
+    return () => { active = false; window.clearTimeout(timer); };
+  }, [query]);
+  const add = (product: AnyRecord) => {
+    const id = Number(norm(product, "productId") ?? norm(product, "id"));
+    if (!id || picked.some((item) => Number(norm(item, "productId") ?? norm(item, "id")) === id)) return;
+    const next = [...picked, product];
+    setPicked(next); onChange(next.map((item) => Number(norm(item, "productId") ?? norm(item, "id"))));
+    setQuery(""); setResults([]);
+  };
+  const remove = (product: AnyRecord) => {
+    const id = Number(norm(product, "productId") ?? norm(product, "id"));
+    const next = picked.filter((item) => Number(norm(item, "productId") ?? norm(item, "id")) !== id);
+    setPicked(next); onChange(next.map((item) => Number(norm(item, "productId") ?? norm(item, "id"))));
+  };
+  return <div className="campaign-products-field"><label><span>محصول‌های کمپین *</span><div className="product-reference-input"><Search size={16}/><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="جست‌وجو با نام یا کد و افزودن محصول"/></div></label>{loading && <small>در حال جست‌وجو…</small>}{results.length > 0 && <div className="product-reference-results">{results.map((product, index) => <button type="button" key={norm(product,"productId") ?? index} onClick={() => add(product)}><strong>{norm(product,"productName") ?? norm(product,"name")}</strong><small>{norm(product,"productCode") ?? ""}</small></button>)}</div>}<div className="campaign-product-chips">{picked.map((product, index) => <span key={norm(product,"productId") ?? index}><b>{norm(product,"productName") ?? norm(product,"name") ?? `محصول ${norm(product,"productId")}`}</b><small>{norm(product,"productCode") ?? `#${norm(product,"productId")}`}</small><button type="button" onClick={() => remove(product)} aria-label="حذف محصول از کمپین">×</button></span>)}{picked.length === 0 && <small>برای ساخت تخفیف مشترک، یک یا چند محصول را انتخاب کنید.</small>}</div></div>;
+}
+
+function BundleItemsManager({ bundleId, readOnly = false }: { bundleId: number; readOnly?: boolean }) {
   const { show } = useToast();
   const [items, setItems] = useState<AnyRecord[]>([]);
   const [productNames, setProductNames] = useState<Record<number, string>>({});
@@ -1071,19 +1128,19 @@ function BundleItemsManager({ bundleId }: { bundleId: number }) {
 
   return <section className="bundle-items-workspace" aria-label="محصولات باندل">
     <header><div><b>محصولات داخل باندل</b><small>محصول، تعداد و قیمت ثبت‌شده در زمان ساخت باندل را مدیریت کنید.</small></div><button type="button" className="ghost" disabled={loading} onClick={() => void load()}><RefreshCw size={15} /> بازخوانی</button></header>
-    <div className="bundle-item-composer">
+    {!readOnly && <div className="bundle-item-composer">
       <ProductReferenceField value={productId} required onChange={setProductId} />
       <label><span>تعداد *</span><input type="number" min="1" value={quantity} onChange={(event) => setQuantity(Math.max(1, Number(event.target.value) || 1))} /></label>
       <label><span>قیمت واحد هنگام ثبت (ریال) *</span><input type="number" min="0" value={unitPrice} onChange={(event) => setUnitPrice(Math.max(0, Number(event.target.value) || 0))} /></label>
       <label><span>شناسه SKU (اختیاری)</span><input type="number" min="1" value={skuId} onChange={(event) => setSkuId(event.target.value)} placeholder="برای محصول ساده خالی بگذارید" /></label>
       <button type="button" className="primary" disabled={busy || !productId || quantity < 1} onClick={() => void add()}>{busy ? "در حال ثبت…" : "افزودن به باندل"}</button>
-    </div>
+    </div>}
     {loading ? <div className="bundle-items-state">در حال دریافت اقلام باندل…</div> : error ? <div className="bundle-items-state error"><span>{error}</span><button type="button" className="ghost" onClick={() => void load()}>تلاش مجدد</button></div> : items.length ? <div className="bundle-item-list">{items.map((item) => {
       const itemId = Number(norm(item, "productBundleItemId") ?? norm(item, "id"));
       const itemProductId = Number(norm(item, "productId"));
       const name = productNames[itemProductId] || `محصول ${itemProductId}`;
-      return <article key={itemId}><span className="bundle-item-icon"><PackageOpen size={20} /></span><div><b>{name}</b><small>شناسه محصول {itemProductId.toLocaleString("fa-IR")}{norm(item, "productSKUID") ? ` · SKU ${norm(item, "productSKUID")}` : ""}</small></div><dl><div><dt>تعداد</dt><dd>{Number(norm(item, "quantity") ?? 0).toLocaleString("fa-IR")}</dd></div><div><dt>قیمت واحد</dt><dd>{Number(norm(item, "unitPriceAtCreation") ?? 0).toLocaleString("fa-IR")} ریال</dd></div></dl><button type="button" className="danger-link" disabled={busy} onClick={() => void remove(item)} aria-label={`حذف ${name} از باندل`}><Trash2 size={17} /></button></article>;
-    })}</div> : <div className="bundle-items-state"><PackageOpen size={28} /><b>هنوز محصولی داخل این باندل نیست.</b><span>از فرم بالا اولین محصول را اضافه کنید.</span></div>}
+      return <article key={itemId}><span className="bundle-item-icon"><PackageOpen size={20} /></span><div><b>{name}</b><small>شناسه محصول {itemProductId.toLocaleString("fa-IR")}{norm(item, "productSKUID") ? ` · SKU ${norm(item, "productSKUID")}` : ""}</small></div><dl><div><dt>تعداد</dt><dd>{Number(norm(item, "quantity") ?? 0).toLocaleString("fa-IR")}</dd></div><div><dt>قیمت واحد</dt><dd>{Number(norm(item, "unitPriceAtCreation") ?? 0).toLocaleString("fa-IR")} ریال</dd></div></dl>{!readOnly && <button type="button" className="danger-link" disabled={busy} onClick={() => void remove(item)} aria-label={`حذف ${name} از باندل`}><Trash2 size={17} /></button>}</article>;
+    })}</div> : <div className="bundle-items-state"><PackageOpen size={28} /><b>هنوز محصولی داخل این باندل نیست.</b>{!readOnly && <span>از فرم بالا اولین محصول را اضافه کنید.</span>}</div>}
   </section>;
 }
 
@@ -2347,6 +2404,7 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [query, setQuery] = useState("");
+  const searchInputRef = useRef<HTMLInputElement>(null);
   const [page, setPage] = useState(1);
   const [productFilters, setProductFilters] = useState({
     brandId: "",
@@ -2399,6 +2457,15 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
     file: File;
     url: string;
   } | null>(null);
+  const formBaselineRef = useRef("");
+  const currentEditorSignature = useMemo(
+    () => editorStateSignature(form, vehicleModelIds, files),
+    [form, vehicleModelIds, files],
+  );
+  const hasUnsavedChanges =
+    modal &&
+    Boolean(formBaselineRef.current) &&
+    currentEditorSignature !== formBaselineRef.current;
 
   const serverPaged = config.list.defaultQuery?.page !== undefined;
   const requestPage = serverPaged ? page : 1;
@@ -2459,6 +2526,20 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
     setPage(1);
   }, [query]);
   useEffect(() => {
+    const focusSearch = (event: KeyboardEvent) => {
+      const target = event.target as HTMLElement | null;
+      if (
+        event.key !== "/" ||
+        modal ||
+        target?.matches("input, textarea, select, [contenteditable=true]")
+      ) return;
+      event.preventDefault();
+      searchInputRef.current?.focus();
+    };
+    window.addEventListener("keydown", focusSearch);
+    return () => window.removeEventListener("keydown", focusSearch);
+  }, [modal]);
+  useEffect(() => {
     setModal(false);
     setSelected(null);
     setEditing(null);
@@ -2483,8 +2564,7 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
     document.body.style.overflow = "hidden";
     document.body.style.overscrollBehavior = "contain";
     const onKey = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setModal(false);
+      if (event.key === "Escape" && !modal) {
         setSelected(null);
       }
     };
@@ -2665,15 +2745,22 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
     setPreviews({});
     setPendingUploadedImage(null);
   };
-  const closeModal = () => {
+  const closeModal = (force = false) => {
+    if (
+      !force &&
+      hasUnsavedChanges &&
+      !window.confirm("تغییرات ذخیره نشده‌اند. پنجره بدون ذخیره بسته شود؟")
+    )
+      return;
     setModal(false);
     clearFiles();
+    formBaselineRef.current = "";
   };
   const openCreate = () => {
     setEditing(null);
     setActiveProductTab("details");
     setVehicleModelIds([]);
-    setForm({
+    const nextForm = {
       ...initial(config.fields),
       ...(config.key === "users" ? { roleName: "User" } : {}),
       ...(config.key === "images"
@@ -2685,10 +2772,12 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
       ...(config.key === "videos"
         ? { displayType: "Gallery", isActive: true, displayOrder: 1 }
         : {}),
-    });
+    };
+    setForm(nextForm);
     setProductImages([]);
     setImagesError("");
     clearFiles();
+    formBaselineRef.current = editorStateSignature(nextForm, [], {});
     setModal(true);
   };
   const openEdit = async (row: AnyRecord) => {
@@ -2741,6 +2830,13 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
         values[field.key] =
           norm(record, field.key) ?? (field.type === "boolean" ? false : "");
       });
+      if (config.key === "productDiscounts") {
+        const ids = norm(record, "productIds");
+        values.productIds = Array.isArray(ids) && ids.length
+          ? ids.map(Number).filter((id: number) => id > 0)
+          : Number(norm(record, "productId")) > 0 ? [Number(norm(record, "productId"))] : [];
+        values.productId = values.productIds[0] ?? 0;
+      }
       if (config.key === "products")
         setVehicleModelIds(
           (Array.isArray(norm(record, "vehicleModels"))
@@ -2755,9 +2851,27 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
       if (config.key === "users") {
         values.password = "";
         values.confirmPassword = "";
+        const ids = norm(record, "roleIds");
+        const assignedId = Array.isArray(ids) ? ids[0] : undefined;
+        const assignedRole = roles.find((role) => String(norm(role, "roleId") ?? norm(role, "id")) === String(assignedId ?? ""))
+          ?? roles.find((role) => String(norm(role, "roleName") ?? norm(role, "name")) === String(norm(record, "roleName") ?? ""));
+        values.roleName = assignedRole ? String(norm(assignedRole, "roleId") ?? norm(assignedRole, "id")) : "";
       }
       clearFiles();
       setForm(values);
+      formBaselineRef.current = editorStateSignature(
+        values,
+        config.key === "products"
+          ? (Array.isArray(norm(record, "vehicleModels"))
+              ? norm(record, "vehicleModels")
+              : [])
+              .map((item: AnyRecord) =>
+                Number(norm(item, "vehicleModelId") ?? norm(item, "modelId")),
+              )
+              .filter((id: number) => id > 0)
+          : [],
+        {},
+      );
       setModal(true);
     } catch (cause) {
       show(
@@ -3095,6 +3209,10 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
       }
       if (editing) body[config.idKey] = Number(idOf(editing));
       const response = await api(path, { method: endpoint.method, body });
+      if (config.key === "users" && editing) {
+        const roleId = Number(form.roleName);
+        if (roleId > 0) await api("api/Permissions/AssignRolesToUser", { method: "POST", body: { userId: Number(idOf(editing)), roleIds: [roleId] } });
+      }
       const imageFile = files.imageUrl;
       let imageError = "";
       let imageAdded = false;
@@ -3158,14 +3276,26 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
         const createdId = Number(recordId(response, config.idKey));
         if (createdId > 0) {
           setEditing({ ...body, productId: createdId });
-          setForm((current) => ({ ...current, productId: createdId }));
-        } else closeModal();
+          const savedForm = { ...form, productId: createdId };
+          setForm(savedForm);
+          formBaselineRef.current = editorStateSignature(
+            savedForm,
+            vehicleModelIds,
+            {},
+          );
+        } else closeModal(true);
       } else if (
         !imageError &&
         !imageAdded &&
         !(config.key === "products" && editing)
       )
-        closeModal();
+        closeModal(true);
+      else
+        formBaselineRef.current = editorStateSignature(
+          form,
+          vehicleModelIds,
+          {},
+        );
       await load();
     } catch (cause) {
       show(
@@ -3177,7 +3307,7 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
     }
   };
   useEffect(() => {
-    if (!modal || config.key !== "products") return;
+    if (!modal) return;
     const saveWithShortcut = (event: KeyboardEvent) => {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "s") {
         event.preventDefault();
@@ -3186,6 +3316,24 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
     };
     window.addEventListener("keydown", saveWithShortcut);
     return () => window.removeEventListener("keydown", saveWithShortcut);
+  });
+  useEffect(() => {
+    if (!modal) return;
+    const protectEditor = (event: KeyboardEvent) => {
+      if (event.key !== "Escape") return;
+      event.preventDefault();
+      closeModal();
+    };
+    const protectPageExit = (event: BeforeUnloadEvent) => {
+      if (!hasUnsavedChanges) return;
+      event.preventDefault();
+    };
+    window.addEventListener("keydown", protectEditor);
+    window.addEventListener("beforeunload", protectPageExit);
+    return () => {
+      window.removeEventListener("keydown", protectEditor);
+      window.removeEventListener("beforeunload", protectPageExit);
+    };
   });
 
   const remove = async (row: AnyRecord) => {
@@ -3345,6 +3493,31 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
       ? Number(total) > page * pageSize ||
         (Number(total) === rows.length && rows.length === pageSize)
       : filteredRows.length > page * pageSize;
+  const hasActiveFilters = Boolean(
+    query.trim() ||
+      (config.key === "products" &&
+        (productFilters.brandId ||
+          productFilters.categoryId ||
+          productFilters.stock ||
+          productFilters.sortBy !== "newest")) ||
+      (config.key === "categories" &&
+        (categoryFilters.active ||
+          categoryFilters.sortBy !== "order" ||
+          categoryBrowsePath.length)),
+  );
+  const clearActiveFilters = () => {
+    setQuery("");
+    setPage(1);
+    setProductFilters({
+      brandId: "",
+      categoryId: "",
+      stock: "",
+      sortBy: "newest",
+    });
+    setCategoryFilters({ active: "", sortBy: "order" });
+    setCategoryBrowsePath([]);
+    window.requestAnimationFrame(() => searchInputRef.current?.focus());
+  };
 
   const renderEditorField = (field: FieldDef) =>
     config.key === "products" && field.key === "categoryId" ? (
@@ -3480,7 +3653,7 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
     ) : config.key === "users" && field.key === "roleName" ? (
       <div className="resource-reference-field" key={field.key}>
         <CatalogDropdown
-          label="نقش پیش‌فرض کاربر *"
+          label={editing ? "نقش کاربر *" : "نقش پیش‌فرض کاربر *"}
           searchable
           disabled={rolesLoading}
           value={String(form.roleName || "")}
@@ -3489,7 +3662,7 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
               norm(role, "roleName") ?? norm(role, "name") ?? "",
             );
             return {
-              value: name,
+              value: editing ? String(norm(role, "roleId") ?? norm(role, "id") ?? "") : name,
               label: String(norm(role, "displayName") ?? name),
             };
           })}
@@ -3498,6 +3671,7 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
             setForm((current) => ({ ...current, roleName: value }))
           }
         />
+        {editing && <small className="resource-role-hint">تغییر نقش پس از ذخیرهٔ مشخصات کاربر به‌صورت مستقل ثبت می‌شود.</small>}
         {!rolesLoading && !roles.length && (
           <div className="resource-reference-error">
             <span>فهرست نقش‌ها دریافت نشد.</span>
@@ -3507,6 +3681,11 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
           </div>
         )}
       </div>
+    ) : config.key === "productDiscounts" && field.key === "productId" ? (
+      <ProductMultiReferenceField
+        value={Array.isArray(form.productIds) ? form.productIds : Number(form.productId) > 0 ? [Number(form.productId)] : []}
+        onChange={(ids) => setForm((current) => ({ ...current, productIds: ids, productId: ids[0] ?? 0 }))}
+      />
     ) : field.key === "productId" ? (
       <ProductReferenceField
         key={field.key}
@@ -3692,6 +3871,7 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
         <div className="searchbox">
           <span aria-hidden="true">⌕</span>
           <input
+            ref={searchInputRef}
             value={query}
             onChange={(event) => {
               setQuery(event.target.value);
@@ -3699,6 +3879,7 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
             }}
             placeholder={config.searchKey ? "جست‌وجو..." : "فیلتر در نتایج..."}
             aria-label={`جست‌وجوی ${config.title}`}
+            aria-keyshortcuts="/"
           />
           {query && (
             <button
@@ -3808,6 +3989,15 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
         <button type="button" onClick={() => void load()} className="ghost">
           ↻ بروزرسانی
         </button>
+        {hasActiveFilters && (
+          <button
+            type="button"
+            className="clear-filters"
+            onClick={clearActiveFilters}
+          >
+            <X size={15} /> پاک‌کردن فیلترها
+          </button>
+        )}
         <div className="count" aria-live="polite">
           {Number(visibleTotal || 0).toLocaleString("fa-IR")}{" "}
           {config.key === "categories" ? "دسته" : "رکورد"}
@@ -4074,7 +4264,7 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
         <div
           className="modal-layer"
           role="presentation"
-          onMouseDown={closeModal}
+          onMouseDown={() => closeModal()}
         >
           <div
             className={`modal resource-modal ${config.key === "products" ? "catalog-editor" : ""} ${config.key === "bundles" ? "bundle-editor" : ""}`}
@@ -4101,7 +4291,7 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
                         : "اطلاعات پایه را ثبت کنید؛ پس از ذخیره، گالری و ویژگی‌ها فعال می‌شوند."
                       : config.key === "users"
                         ? editing
-                          ? "اطلاعات پایه قابل ویرایش است؛ تغییر نقش را از بخش نقش‌ها انجام دهید."
+                          ? "اطلاعات حساب، وضعیت و نقش کاربر را یک‌جا ویرایش کنید."
                           : "نقش کاربر را از فهرست انتخاب کنید؛ رمز باید حداقل ۶ کاراکتر باشد."
                         : config.key === "categories" && editing
                           ? "اطلاعات دسته و محصولات مرتبط را جداگانه مدیریت کنید."
@@ -4115,7 +4305,7 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
                   )}
                 </div>
               </div>
-              <button type="button" onClick={closeModal} aria-label="بستن">
+              <button type="button" onClick={() => closeModal()} aria-label="بستن">
                 ×
               </button>
             </header>
@@ -4381,7 +4571,8 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
                 )}
             </div>
             <footer className={config.key === "products" ? "product-editor-footer" : ""}>
-              {config.key === "products" && editing && <div className="product-editor-footer-note"><CircleCheck size={17} /><span>پس از ذخیره، همین پنجره باز می‌ماند تا ویرایش را ادامه دهید.</span><kbd>Ctrl + S</kbd></div>}
+              {hasUnsavedChanges && <div className="resource-unsaved-note"><TriangleAlert size={16}/><span>تغییرات هنوز ذخیره نشده‌اند</span></div>}
+              {editing && <div className="product-editor-footer-note"><CircleCheck size={17} /><span>{config.key === "products" ? "پس از ذخیره، همین پنجره باز می‌ماند تا ویرایش را ادامه دهید." : "برای ذخیره سریع از میانبر صفحه‌کلید استفاده کنید."}</span><kbd>Ctrl + S</kbd></div>}
               {config.key === "products" && editing && (() => {
                 const steps: ProductEditorTab[] = ["details", "images", "features", "description", "vehicles"];
                 const currentIndex = Math.max(0, steps.indexOf(activeProductTab));
@@ -4409,14 +4600,15 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
                   </div>
                 );
               })()}
-              <button type="button" className="ghost" onClick={closeModal}>
-                بستن
+              <button type="button" className="ghost" onClick={() => closeModal()}>
+                {hasUnsavedChanges ? "انصراف" : "بستن"}
               </button>
               {!(config.key === "bundles" && editing && activeProductTab === "bundleItems") && (
                 <button
                   type="button"
                   className="primary"
                   disabled={busy}
+                  aria-keyshortcuts="Control+S"
                   onClick={() => void save()}
                 >
                   {busy
@@ -4456,9 +4648,26 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
                 </b>
                 <span>شناسه: {String(idOf(selected) ?? "—")}</span>
               </div>
-              <button type="button" onClick={closeDetails} aria-label="بستن">
-                ×
-              </button>
+              <div className="drawer-header-actions">
+                {!config.readOnly && config.update && (
+                  <button
+                    type="button"
+                    className="drawer-edit-action"
+                    onClick={() => {
+                      const record = selected;
+                      closeDetails();
+                      void openEdit(record);
+                    }}
+                    aria-label={`ویرایش ${config.singular}`}
+                  >
+                    <Pencil size={15} />
+                    <span>ویرایش</span>
+                  </button>
+                )}
+                <button type="button" onClick={closeDetails} aria-label="بستن">
+                  ×
+                </button>
+              </div>
             </header>
             {config.key === "products" ? (
               <div className="product-detail-drawer-body">
@@ -4481,6 +4690,11 @@ export function ResourceManager({ config }: { config: ResourceConfig }) {
                 category={selected}
                 categories={categories}
               />
+            ) : config.key === "bundles" ? (
+              <div className="bundle-details-panel">
+                <ResourceDetailsPanel record={selected} config={config} />
+                <BundleItemsManager key={`bundle-details-${idOf(selected)}`} bundleId={Number(idOf(selected))} readOnly />
+              </div>
             ) : (
               <ResourceDetailsPanel record={selected} config={config} />
             )}

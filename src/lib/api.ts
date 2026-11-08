@@ -1,8 +1,14 @@
 // Keep local development configurable while ensuring a production build never
 // silently points at the server's loopback interface.
 export const API_BASE = (process.env.NEXT_PUBLIC_API_BASE_URL || 'https://api.carnix.ir').replace(/\/$/, '');
-const TOKEN_KEY = 'carnix_admin_api_token';
-const REFRESH_KEY = 'carnix_admin_refresh_token';
+// Keep credentials isolated per API environment. A production token is not
+// valid in the local Carnix database (and vice versa), even when the same Admin
+// UI origin is used for both during development.
+const TOKEN_SCOPE = API_BASE.toLocaleLowerCase('en-US');
+const TOKEN_KEY = `carnix_admin_api_token:${TOKEN_SCOPE}`;
+const REFRESH_KEY = `carnix_admin_refresh_token:${TOKEN_SCOPE}`;
+const LEGACY_TOKEN_KEY = 'carnix_admin_api_token';
+const LEGACY_REFRESH_KEY = 'carnix_admin_refresh_token';
 export const tokenStore = {
   get: () => typeof window === 'undefined' ? null : sessionStorage.getItem(TOKEN_KEY) || localStorage.getItem(TOKEN_KEY),
   getRefresh: () => typeof window === 'undefined' ? null : sessionStorage.getItem(REFRESH_KEY) || localStorage.getItem(REFRESH_KEY),
@@ -11,12 +17,21 @@ export const tokenStore = {
     if (typeof window === 'undefined') return;
     const target = persistent ? localStorage : sessionStorage;
     const other = persistent ? sessionStorage : localStorage;
+    for (const storage of [localStorage, sessionStorage]) {
+      storage.removeItem(LEGACY_TOKEN_KEY);
+      storage.removeItem(LEGACY_REFRESH_KEY);
+    }
     other.removeItem(TOKEN_KEY); other.removeItem(REFRESH_KEY);
     target.setItem(TOKEN_KEY, value);
     if (refreshToken) target.setItem(REFRESH_KEY, refreshToken);
     else target.removeItem(REFRESH_KEY);
   },
-  clear: () => { if (typeof window !== 'undefined') { localStorage.removeItem(TOKEN_KEY); localStorage.removeItem(REFRESH_KEY); sessionStorage.removeItem(TOKEN_KEY); sessionStorage.removeItem(REFRESH_KEY); } },
+  clear: () => { if (typeof window !== 'undefined') {
+    for (const storage of [localStorage, sessionStorage]) {
+      storage.removeItem(TOKEN_KEY); storage.removeItem(REFRESH_KEY);
+      storage.removeItem(LEGACY_TOKEN_KEY); storage.removeItem(LEGACY_REFRESH_KEY);
+    }
+  } },
 };
 export type ApiOptions = { method?:string; body?:unknown; query?:Record<string, unknown>; formData?:FormData; signal?:AbortSignal };
 function queryString(query?:Record<string,unknown>) {
@@ -95,4 +110,3 @@ export function unwrapList(input:any):any[]{
   return [];
 }
 export function unwrapData(input:any){ return input?.data ?? input?.result ?? input; }
-// Test

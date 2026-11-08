@@ -524,8 +524,8 @@
 
 @media (max-width: 1120px) {
   .admin-v3-content .catalog-editor .product-editor-navigation {
-    grid-template-columns: repeat(5, 180px);
-    overflow-x: auto;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    overflow: visible;
   }
 
   .admin-v3-content .catalog-editor .product-editor-section-identity,
@@ -563,7 +563,7 @@
   }
 
   .admin-v3-content .catalog-editor .product-editor-navigation {
-    grid-template-columns: repeat(5, 158px);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     margin: 0 -14px 16px;
     padding: 10px 14px;
   }

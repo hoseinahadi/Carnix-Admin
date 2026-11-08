@@ -1,6 +1,6 @@
 // features/products/components/ProductInventoryModal/ProductInventoryModal.tsx
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/redux/hooks/hooks';
 import { getAllProducts } from '@/redux/features/product/ProductThunks';
 import { getActiveWarehouses } from '@/redux/features/Warehous/WarehouseThunks';
@@ -32,6 +32,7 @@ const ProductInventoryModal: React.FC<ProductInventoryModalProps> = ({
 }) => {
   const dispatch = useAppDispatch();
   const { products, loading: productsLoading } = useAppSelector((state) => state.products);
+  const uniqueProducts = useMemo(() => [...new Map(products.map(product => [product.productId, product])).values()], [products]);
   const warehouses = useAppSelector(selectActiveWarehouses);
   const warehousesLoading = useAppSelector(selectWarehousesLoading);
   
@@ -119,7 +120,7 @@ const ProductInventoryModal: React.FC<ProductInventoryModalProps> = ({
             <option value="">
               {productsLoading ? 'در حال بارگذاری...' : 'انتخاب کنید...'}
             </option>
-            {products.map((product) => (
+            {uniqueProducts.map((product) => (
               <option key={product.productId} value={product.productId}>
                 {product.productName}
               </option>

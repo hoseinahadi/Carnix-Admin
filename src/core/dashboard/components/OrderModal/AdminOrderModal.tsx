@@ -1,5 +1,5 @@
 // features/admin-order/components/AdminOrderModal.tsx
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '@/redux/store/index'; 
 import styles from './OrderModal.module.scss';
@@ -25,6 +25,7 @@ const AdminOrderModal: React.FC<AdminOrderModalProps> = ({ isOpen, onClose, onSu
   
   const products = useSelector(selectProducts);
   const productsLoading = useSelector(selectProductsLoading);
+  const uniqueProducts = useMemo(() => [...new Map(products.map(product => [product.productId, product])).values()], [products]);
 
   const users = useSelector((state: RootState) => state.user.users);
   const usersLoading = useSelector((state: RootState) => state.user.loading);
@@ -238,7 +239,7 @@ const AdminOrderModal: React.FC<AdminOrderModalProps> = ({ isOpen, onClose, onSu
                       onChange={e => setSelectedProductId(Number(e.target.value))}
                     >
                       <option value="">یک محصول انتخاب کنید...</option>
-                      {products.map(p => (
+                      {uniqueProducts.map(p => (
                         <option key={p.productId} value={p.productId}>
                           {p.productName}
                         </option>

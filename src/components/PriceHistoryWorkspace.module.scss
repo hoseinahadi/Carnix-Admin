@@ -1,0 +1,61 @@
+.page { display: grid; gap: 24px; color: #302b3e; }
+.header { display: flex; align-items: flex-end; justify-content: space-between; gap: 18px; }
+.header > div:first-child > span { display: inline-flex; align-items: center; gap: 7px; color: #80689c; font-size: 13px; font-weight: 750; }
+.header h1 { margin: 8px 0 5px; color: #211f32; font-size: clamp(24px, 2.3vw, 32px); letter-spacing: -.5px; }
+.header p { margin: 0; color: #777184; font-size: 14px; line-height: 1.9; }
+.range { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 0 13px; border: 1px solid #e9e2f1; border-radius: 12px; background: #fff; color: #65547b; font-size: 13px; font-weight: 700; }
+.workspace { display: grid; grid-template-columns: minmax(300px, .8fr) minmax(0, 1.6fr); gap: 18px; align-items: start; }
+.productPanel, .detailPanel { overflow: hidden; border: 1px solid #e8e0f0; border-radius: 20px; background: linear-gradient(145deg, #fff, #fffdfd 70%, #fcf9ff); box-shadow: 0 12px 32px #4939650b; }
+.productPanel { display: grid; }
+.listHeader { display: grid; gap: 13px; padding: 18px; border-bottom: 1px solid #f0ebf4; }
+.listHeader > div:first-child { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; }
+.listHeader h2, .chartHeading h3 { margin: 0; color: #302d43; font-size: 17px; }
+.listHeader > div > span, .chartHeading > div > span { color: #827a8d; font-size: 12px; }
+.search { display: flex; align-items: center; gap: 8px; min-height: 42px; padding: 0 11px; border: 1px solid #e5ddec; border-radius: 11px; background: #fff; color: #958aa3; }
+.search:focus-within { border-color: #a58abd; box-shadow: 0 0 0 3px #a58abd1c; }
+.search input { width: 100%; min-width: 0; border: 0; outline: 0; background: transparent; color: #342942; font: inherit; font-size: 13px; }
+.productList { max-height: 650px; overflow: auto; padding: 7px; }
+.product { display: flex; align-items: center; gap: 11px; width: 100%; min-height: 78px; padding: 10px; border: 1px solid transparent; border-radius: 13px; background: transparent; color: #625a6d; text-align: right; transition: .16s ease; }
+.product:hover { border-color: #ece3f4; background: #fcf9ff; }
+.selected, .selected:hover { border-color: #d6c4e6; background: #f5effa; box-shadow: inset 0 0 0 1px #eee4f5; }
+.product > img, .imagePlaceholder { flex: 0 0 54px; width: 54px; height: 54px; object-fit: cover; border: 1px solid #eee8f2; border-radius: 11px; background: #faf7fc; }
+.imagePlaceholder { display: grid; place-items: center; color: #947db0; }
+.productCopy { display: grid; gap: 4px; min-width: 0; flex: 1; }
+.productCopy b { overflow: hidden; color: #393347; font-size: 13px; line-height: 1.6; text-overflow: ellipsis; white-space: nowrap; }
+.productCopy small { color: #81798d; font-size: 12px; line-height: 1.5; }
+.product > svg { flex: 0 0 auto; color: #a093b0; }
+.pager { display: flex; justify-content: space-between; gap: 10px; padding: 12px 16px; border-top: 1px solid #f0ebf4; }
+.pager button { min-height: 36px; padding: 0 12px; border: 1px solid #e6ddec; border-radius: 10px; background: #fff; color: #65547b; font: inherit; font-size: 12px; font-weight: 700; }
+.pager button:disabled { opacity: .45; cursor: not-allowed; }
+.detailPanel { min-height: 500px; padding: 22px; }
+.detailHeader { display: flex; align-items: center; gap: 14px; padding-bottom: 18px; border-bottom: 1px solid #f0ebf4; }
+.detailHeader > img, .detailImagePlaceholder { flex: 0 0 74px; width: 74px; height: 74px; object-fit: cover; border: 1px solid #ece5f1; border-radius: 16px; background: #faf7fc; }
+.detailImagePlaceholder { display: grid; place-items: center; color: #947db0; }
+.detailHeader > div > span { color: #8b779e; font-size: 12px; font-weight: 700; }
+.detailHeader h2 { margin: 4px 0; color: #302d43; font-size: 19px; line-height: 1.6; }
+.detailHeader small { color: #777184; font-size: 13px; }
+.stats { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 17px 0 22px; }
+.stats article { display: grid; gap: 8px; min-height: 82px; padding: 13px; border: 1px solid #eee7f3; border-radius: 13px; background: #fcfaff; }
+.stats article span { color: #777184; font-size: 12px; }
+.stats article b { color: #463957; font-size: 16px; }
+.stats .increase { color: #388159; }
+.stats .decrease { color: #b04442; }
+.chartHeading { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 7px; }
+.chartHeading > div { display: grid; gap: 3px; }
+.latest { color: #5f4979; font-size: 13px; font-weight: 800; }
+.chartWrap { padding: 8px 0 0; }
+.chart { display: block; width: 100%; min-height: 240px; overflow: visible; }
+.grid { stroke: #eee9f3; stroke-dasharray: 4 5; stroke-width: 1; }
+.axis { fill: #8b8494; font: 12px IRANYekan, Tahoma, sans-serif; }
+.line { fill: none; stroke: #8d70ad; stroke-linecap: round; stroke-linejoin: round; stroke-width: 3; }
+.dot { fill: #fff; stroke: #8d70ad; stroke-width: 2.5; }
+.dot:last-of-type { fill: #8d70ad; }
+.chartLegend { display: flex; align-items: center; gap: 7px; color: #6d6578; font-size: 12px; }
+.chartLegend i { width: 9px; height: 9px; border-radius: 50%; background: #8d70ad; }
+.chartLegend span { margin-right: auto; color: #938b9b; }
+.empty { display: grid; place-items: center; min-height: 150px; padding: 24px; color: #877e91; font-size: 14px; line-height: 1.9; text-align: center; }
+.error { margin: 15px; padding: 14px; border-radius: 12px; background: #fff2ef; color: #a64535; font-size: 13px; line-height: 1.8; }
+.note { margin: 13px 0 0; color: #827a8d; font-size: 12px; line-height: 1.8; }
+@media (max-width: 980px) { .workspace { grid-template-columns: minmax(260px, .8fr) minmax(0, 1.3fr); gap: 12px; } .detailPanel { padding: 17px; } }
+@media (max-width: 760px) { .header { align-items: flex-start; flex-direction: column; } .workspace { grid-template-columns: 1fr; } .productList { max-height: 360px; } .detailPanel { min-height: 400px; } }
+@media (max-width: 460px) { .page { gap: 17px; } .detailPanel { padding: 14px; } .stats { gap: 7px; } .stats article { padding: 10px; } .stats article span { font-size: 11px; } .stats article b { font-size: 13px; } .detailHeader h2 { font-size: 16px; } .chart { min-height: 200px; } .chartLegend { flex-wrap: wrap; } }

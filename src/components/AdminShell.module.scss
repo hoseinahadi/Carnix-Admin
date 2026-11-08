@@ -38,6 +38,21 @@
   transition: width .24s ease, transform .24s ease;
 }
 
+/* Larger, easier-to-scan admin navigation and utility text. */
+.sidebarSearch input { font-size: 14px; }
+.groupTitle { font-size: 13px; line-height: 1.7; }
+.navLink { min-height: 44px; font-size: 14px; line-height: 1.7; }
+.accountText strong { font-size: 13px; }
+.accountText small { font-size: 11px; }
+.breadcrumb { font-size: 13px; }
+.commandTrigger { font-size: 13px; }
+.connection, .storeLink { font-size: 13px; }
+:global(.admin-v3-content .eyebrow) { font-size: 12px; }
+:global(.admin-v3-content .page-head p) { font-size: 14px; }
+:global(.admin-v3-content th) { font-size: 13px; }
+:global(.admin-v3-content td) { font-size: 14px; }
+:global(.admin-v3-content small) { font-size: max(12px, 1em); }
+
 .collapsed .sidebar { width: var(--nav-mini-width); padding-inline: 10px; }
 .brandRow { display: flex; align-items: center; min-height: 52px; gap: 10px; }
 .brand { display: flex; align-items: center; gap: 10px; min-width: 0; color: inherit; }
@@ -96,6 +111,7 @@
 .iconButton:hover { border-color: #8db4ee; background: #f1f6ff; }
 .mobileMenu { display: none; }
 .topbarEnd { gap: 15px; }
+.commandTrigger{display:flex;align-items:center;gap:8px;min-height:38px;padding:0 10px;border:1px solid #e7e0ee;border-radius:10px;background:#faf8fd;color:#77688d;font-size:11px}.commandTrigger:hover{border-color:#cbbdeb;background:#f5f0fc}.commandTrigger kbd{padding:3px 6px;border:1px solid #dfd7e8;border-bottom-width:2px;border-radius:5px;background:#fff;color:#8b7e9d;font:9px/1.2 Consolas,monospace;direction:ltr}.commandLayer{position:fixed;inset:0;z-index:150;display:grid;place-items:start center;padding-top:min(16vh,150px);background:#241b365c;backdrop-filter:blur(5px)}.commandPalette{width:min(620px,calc(100vw - 30px));max-height:min(70vh,650px);overflow:hidden;border:1px solid #e6deef;border-radius:18px;background:#fff;box-shadow:0 28px 90px #25173940}.commandPalette>header{display:flex;align-items:center;gap:10px;padding:14px 16px;border-bottom:1px solid #eee9f3;color:#816f98}.commandPalette>header input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:#342942;font-size:14px}.commandPalette>header kbd{padding:4px 7px;border:1px solid #e2dbe9;border-radius:6px;background:#faf8fc;color:#8c8197;font:10px Consolas,monospace}.commandResults{max-height:calc(min(70vh,650px) - 64px);overflow:auto;padding:8px}.commandResults>span{display:block;padding:7px 10px;color:#9a8ca8;font-size:10px;font-weight:800}.commandResults>button{display:flex;align-items:center;gap:11px;width:100%;min-height:54px;padding:8px 10px;border:0;border-radius:11px;background:#fff;color:#504160;text-align:right}.commandResults>button:hover,.commandResults>button:focus-visible{background:#f5f0fc;outline:0}.commandResults>button>i{display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;border-radius:9px;background:#eee8fa;color:#7058b5}.commandResults>button>span{display:grid;gap:3px;min-width:0}.commandResults b{font-size:12px}.commandResults small{color:#9488a1;font-size:10px}.commandResults>button>svg{margin-right:auto;color:#a195ad}.commandResults>p{padding:28px;color:#8b8095;text-align:center;font-size:12px}
 .connection { display: inline-flex; align-items: center; gap: 7px; color: #3d6d55; font-size: 11px; }
 .connection i { width: 7px; height: 7px; border-radius: 50%; background: #2ead67; box-shadow: 0 0 0 4px #d9f5e5; }
 .storeLink { display: inline-flex; align-items: center; gap: 4px; padding: 8px 11px; border: 1px solid #e9e6f0; border-radius: 9px; color: #74618e; font-size: 11px; }
@@ -114,6 +130,7 @@
 :global(.admin-v3-content .card) { border-color: #e9e6f0; border-radius: 15px; box-shadow: 0 8px 28px #725b980a; }
 :global(.admin-v3-content th) { background: #f7faff; color: #746c84; font-size: 11px; }
 :global(.admin-v3-content td) { color: #343047; font-size: 12px; }
+:global(.admin-v3-content .table-wrap th:last-child),:global(.admin-v3-content .table-wrap td:last-child){position:sticky;left:0;z-index:2;border-right:1px solid #eee9f4;background:#fff}:global(.admin-v3-content .table-wrap th:last-child){z-index:3;background:#f7faff}:global(.admin-v3-content .table-wrap tbody tr:hover td:last-child){background:#f6f9ff}
 :global(.admin-v3-content .primary) { background: #7159d9; box-shadow: 0 7px 16px #7159d929; }
 :global(.admin-v3-content .primary:hover) { background: #6047c4; }
 :global(.admin-v3-content .ghost) { border-color: #d8e3f0; color: #36547d; }
@@ -134,7 +151,7 @@
   .collapsed .sidebarSearch input { display: block; }
   .collapsed .navLink { justify-content: initial; padding: 0 11px; }
   .collapsed .navLink span, .collapsed .linkArrow, .collapsed .accountText, .collapsed .accountCard > button { display: initial; }
-  .collapsed .groupTitle { justify-content: space-between; font-size: 11px; }
+  .collapsed .groupTitle { justify-content: space-between; font-size: 13px; }
   .collapsed .groupTitle svg { display: block; }
 }
 
@@ -144,6 +161,7 @@
   .breadcrumb strong { font-size: 13px; }
   .topbarEnd { gap: 8px; }
   .storeLink { display: none; }
+  .commandTrigger span,.commandTrigger kbd{display:none}.commandTrigger{width:36px;padding:0;justify-content:center}
   .content { min-height: calc(100vh - 64px); padding: 18px 13px 28px; }
   :global(.admin-v3-content .page-head) { align-items: stretch; gap: 12px; margin-bottom: 18px; padding-bottom: 15px; }
   :global(.admin-v3-content .page-head h1) { font-size: 21px; }
@@ -278,4 +296,17 @@
   :global(.admin-v3-content .feature-search-card) { flex-direction: column; align-items: stretch; }
   :global(.admin-v3-content .feature-search-results) { grid-template-columns: 1fr; }
 }
-/* Test */
+/* Global admin type scale: clearer navigation and no sub-12px utility copy. */
+.sidebarSearch input { font-size: 14px; }
+.sidebar .groupTitle { font-size: 13px; line-height: 1.7; }
+.sidebar .navLink { min-height: 44px; font-size: 14px; line-height: 1.7; }
+.accountCard .accountText strong { font-size: 13px; }
+.accountCard .accountText small { font-size: 11px; }
+.breadcrumb { font-size: 13px; }
+.commandTrigger { font-size: 13px; }
+.connection, .storeLink { font-size: 13px; }
+:global(.admin-v3-content .eyebrow) { font-size: 12px; }
+:global(.admin-v3-content .page-head p) { font-size: 14px; }
+:global(.admin-v3-content th) { font-size: 13px; }
+:global(.admin-v3-content td) { font-size: 14px; }
+:global(.admin-v3-content small) { font-size: max(12px, 1em); }
